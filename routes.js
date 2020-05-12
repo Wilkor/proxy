@@ -117,7 +117,7 @@ const headers = {
 
 routes.post('/token', async (req, res) => {
 
-  const resp = await axios.post('https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Token', 
+  const resp = await axios.post('', 
         {
             "username": "",
             "password": ""
