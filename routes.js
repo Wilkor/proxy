@@ -119,8 +119,8 @@ routes.post('/token', async (req, res) => {
 
   const resp = await axios.post('https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Token', 
         {
-            "username": "APPTAKE",
-            "password": "1T1297*kmu"
+            "username": "",
+            "password": ""
     }
 )
    const jsonText2 = JSON.stringify (resp.data);
