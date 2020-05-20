@@ -117,11 +117,12 @@ const headers = {
 
 routes.post('/token', async (req, res) => {
 
-  const resp = await axios.post('', 
+    console.log('opa')
+  const resp = await axios.post('https://api.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Token', 
         {
-            "username": "",
-            "password": ""
-    }
+             "username": "",
+             "password": ""
+        }
 )
    const jsonText2 = JSON.stringify (resp.data);
    const responseObject2 = JSON.parse (jsonText2);
@@ -222,6 +223,52 @@ routes.post('/uritobase64', (req,res) => {
       res.status(200).json({msg:'recebido',base:base64})
 
 
+  });
+  routes.post('/talking', (req,res) => {
+   
+     console.log(req.body);
+  });
+  
+  routes.post('/schedule', async (req,res) => {
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Key c2FmcmFwcm9kY29uc2lnYmlvd2E6T1Z1WU1zQlN6YjgyRTJIblJOYkE='
+      }}
+  const payload = {  
+        "id":uuidv4(),
+        "to": "postmaster@scheduler.msging.net",
+        "method": "get",
+        "uri": "/schedules?$take=999999"
+        }
+   
+
+    const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
+
+    const data = response2.data.resource.items.filter((e) => {
+         return e.status === 'scheduled'  
+    }).filter((d) => {
+     return d.message.to === '5511970950034@wa.gw.msging.net'
+    });
+
+     data.forEach(async (element) => {
+            const payload2 = {  
+                        "id": uuidv4(),
+                        "to": "postmaster@scheduler.msging.net",
+                        "method": "delete",
+                        "uri": `/schedules/${element.message.id}`,
+                        }
+
+        await axios.post(`${baseUrl}/commands`, payload2,headers);
+         
+     });
+     const response3 = await axios.post(`${baseUrl}/commands`, payload,headers);
+
+    const jsonText3 = JSON.stringify(response3.data);
+    const responseObject3 = JSON.parse(jsonText3);
+    
+    res.send(responseObject3);
   });
 module.exports = routes;
 
