@@ -230,11 +230,12 @@ routes.post('/uritobase64', (req,res) => {
   });
   
   routes.post('/schedule', async (req,res) => {
-
+ const {acceskey} = req.headers;
+ const {contactIdentity} = req.body
     const headers = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Key c2FmcmFwcm9kY29uc2lnYmlvd2E6T1Z1WU1zQlN6YjgyRTJIblJOYkE='
+        'Authorization': acceskey
       }}
   const payload = {  
         "id":uuidv4(),
@@ -249,7 +250,7 @@ routes.post('/uritobase64', (req,res) => {
     const data = response2.data.resource.items.filter((e) => {
          return e.status === 'scheduled'  
     }).filter((d) => {
-     return d.message.to === '5511970950034@wa.gw.msging.net'
+     return d.message.to === contactIdentity
     });
 
      data.forEach(async (element) => {
