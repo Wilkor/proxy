@@ -230,12 +230,15 @@ routes.post('/uritobase64', (req,res) => {
   });
   
   routes.post('/schedule', async (req,res) => {
- const {acceskey} = req.headers;
+ const {accesskey} = req.headers;
  const {contactIdentity} = req.body
+
+  console.log(accesskey)
+  console.log(contactIdentity)
     const headers = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': acceskey
+        'Authorization': accesskey
       }}
   const payload = {  
         "id":uuidv4(),
