@@ -274,6 +274,34 @@ routes.post('/uritobase64', (req,res) => {
     
     res.send(responseObject3);
   });
+
+  routes.post('/schedule/list', async (req,res) => {
+
+    const {accesskey} = req.headers;
+  
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accesskey
+      }}
+  const payload = {  
+        "id":uuidv4(),
+        "to": "postmaster@scheduler.msging.net",
+        "method": "get",
+        "uri": "/schedules?$take=999999"
+        }
+   
+
+    const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
+
+    const jsonText3 = JSON.stringify(response2.data);
+    const responseObject3 = JSON.parse(jsonText3);
+    
+    res.send(responseObject3);
+  });
+
+
 module.exports = routes;
 
 
