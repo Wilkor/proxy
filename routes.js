@@ -289,7 +289,7 @@ routes.post('/uritobase64', (req,res) => {
         "id":uuidv4(),
         "to": "postmaster@scheduler.msging.net",
         "method": "get",
-        "uri": "/schedules?$take=999999&$skip=600"
+        "uri": "/schedules?$take=999999&$skip=820"
         }
 
     const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
