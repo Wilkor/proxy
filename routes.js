@@ -151,24 +151,20 @@ const headers = {
       }}
 
  const payload2 =   {
-        "id": "1231",
+        "id": identify,
         "method": "set",
         "uri":  "/resources/" + id,
            "type": "application/json",
            "resource": {
-        "LinkBiometria":" https://assinatura-digital.com.br",
-        "broadcastOrigem":"safraprodconsigbiowa_boas_vindas_1",
-         "propostas": [
-        {
-            "proposta": "123",
-            "valor": "25,40",
-            "status": status,
-            "Link_CET": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-            "Link_CCB": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-            "StatusProposta": "Ativo/Assinado/Ilegível/Cancelado/Pago",
-            "Produto": "Refin"
-        }]
-     }
+                "Proposta": "10166599",
+                "Valor": "120.40",
+                "StatusProposta": status,
+                "Produto": "REFIN",
+                "LinkBiometria": "https://epfweb.safra.com.br/formalizacao/#/sf-formalizacao/login/b4056e86210220",
+                "LinkCcb": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
+                "LinkCet": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
+                "Template": "safraprodconsigbiowa_boas_vindas_2"
+               }
 
  }
 
@@ -233,8 +229,6 @@ routes.post('/uritobase64', (req,res) => {
  const {accesskey} = req.headers;
  const {contactIdentity} = req.body
 
-  console.log(accesskey)
-  console.log(contactIdentity)
     const headers = {
       headers: {
         'Content-Type': 'application/json',
@@ -255,6 +249,8 @@ routes.post('/uritobase64', (req,res) => {
     }).filter((d) => {
      return d.message.to === contactIdentity
     });
+
+
 
      data.forEach(async (element) => {
             const payload2 = {  
@@ -277,8 +273,8 @@ routes.post('/uritobase64', (req,res) => {
 
   routes.post('/schedule/list', async (req,res) => {
 
-    const {accesskey} = req.headers;
-  
+    const {accesskey, identity} = req.headers;
+
 
     const headers = {
       headers: {
@@ -289,14 +285,18 @@ routes.post('/uritobase64', (req,res) => {
         "id":uuidv4(),
         "to": "postmaster@scheduler.msging.net",
         "method": "get",
-        "uri": "/schedules?$take=999999&$skip=820"
+        "uri": "/schedules?$take=999999"
         }
 
     const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
 
-  
+    const data = response2.data.resource.items.filter((e) => {
+         return e.status === 'scheduled'  
+    }).filter((d) => {
+     return d.message.to === identity
+    });
 
-    const jsonText3 = JSON.stringify(response2.data);
+    const jsonText3 = JSON.stringify(data);
     const responseObject3 = JSON.parse(jsonText3);
     
     res.send(responseObject3);
