@@ -115,15 +115,10 @@ const headers = {
     
 })
 
-routes.post('/token', async (req, res) => {
+routes.post('/Token', async (req, res) => {
 
-    console.log('opa')
-  const resp = await axios.post('https://api.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Token', 
-        {
-             "username": "",
-             "password": ""
-        }
-)
+  const resp = await axios.post('https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Token', req.body)
+
    const jsonText2 = JSON.stringify (resp.data);
    const responseObject2 = JSON.parse (jsonText2);
 
@@ -215,7 +210,6 @@ routes.post('/uritobase64', (req,res) => {
   routes.post('/doc', (req,res) => {
 
       const {base64} = req.body
-   
       res.status(200).json({msg:'recebido',base:base64})
 
 
@@ -226,56 +220,55 @@ routes.post('/uritobase64', (req,res) => {
   });
   
   routes.post('/schedule', async (req,res) => {
- const {accesskey} = req.headers;
- const {contactIdentity} = req.body
+    const {accesskey} = req.headers;
+    const {contactIdentity} = req.body
 
-    const headers = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accesskey
-      }}
-  const payload = {  
-        "id":uuidv4(),
-        "to": "postmaster@scheduler.msging.net",
-        "method": "get",
-        "uri": "/schedules?$take=999999"
-        }
-   
-
-    const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
-
-    const data = response2.data.resource.items.filter((e) => {
-         return e.status === 'scheduled'  
-    }).filter((d) => {
-     return d.message.to === contactIdentity
-    });
-
-
-
-     data.forEach(async (element) => {
-            const payload2 = {  
-                        "id": uuidv4(),
-                        "to": "postmaster@scheduler.msging.net",
-                        "method": "delete",
-                        "uri": `/schedules/${element.message.id}`,
-                        }
-
-        await axios.post(`${baseUrl}/commands`, payload2,headers);
-         
-     });
-     const response3 = await axios.post(`${baseUrl}/commands`, payload,headers);
-
-    const jsonText3 = JSON.stringify(response3.data);
-    const responseObject3 = JSON.parse(jsonText3);
+        const headers = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': accesskey
+        }}
+    const payload = {  
+            "id":uuidv4(),
+            "to": "postmaster@scheduler.msging.net",
+            "method": "get",
+            "uri": "/schedules?$take=999999"
+            }
     
-    res.send(responseObject3);
+
+        const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
+
+        const data = response2.data.resource.items.filter((e) => {
+            return e.status === 'scheduled'  
+        }).filter((d) => {
+        return d.message.to === contactIdentity
+        });
+
+
+
+        data.forEach(async (element) => {
+                const payload2 = {  
+                            "id": uuidv4(),
+                            "to": "postmaster@scheduler.msging.net",
+                            "method": "delete",
+                            "uri": `/schedules/${element.message.id}`,
+                            }
+
+            await axios.post(`${baseUrl}/commands`, payload2,headers);
+            
+        });
+        const response3 = await axios.post(`${baseUrl}/commands`, payload,headers);
+
+        const jsonText3 = JSON.stringify(response3.data);
+        const responseObject3 = JSON.parse(jsonText3);
+        
+        res.send(responseObject3);
   });
 
   routes.post('/schedule/list', async (req,res) => {
 
     const {accesskey, identity} = req.headers;
 
-
     const headers = {
       headers: {
         'Content-Type': 'application/json',
@@ -290,18 +283,148 @@ routes.post('/uritobase64', (req,res) => {
 
     const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
 
-    const data = response2.data.resource.items.filter((e) => {
-         return e.status === 'scheduled'  
-    }).filter((d) => {
-     return d.message.to === identity
-    });
 
-    const jsonText3 = JSON.stringify(data);
-    const responseObject3 = JSON.parse(jsonText3);
-    
-    res.send(responseObject3);
+        const data = response2.data.resource.items.filter((e) => {
+             return e.status === 'scheduled'  
+        }).filter((d) => {
+         return d.message.to === identity
+        });
+        const jsonText3 = JSON.stringify(data);
+        const responseObject3 = JSON.parse(jsonText3);
+        
+        res.send(responseObject3);
+
   });
 
+routes.post('/ValidacaoDadosCliente', async (req, res) => {
+
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+    const payload = req.body
+
+
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/ValidacaoDadosCliente';
+
+
+        console.log(url, payload,headers)
+
+        const response2 = await axios.post(url, payload,headers);
+
+        const jsonText3 = JSON.stringify(response2.data);
+        const responseObject3 = JSON.parse(jsonText3);
+
+     res.send(responseObject3)
+  });
+
+  routes.post('/AcompanhamentoFormalizacao', async (req, res) => {
+
+
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+    const payload = req.body
+
+
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/AcompanhamentoFormalizacao'
+
+        const response2 = await axios.post(url, payload,headers);
+
+        const jsonText3 = JSON.stringify(response2.data);
+        const responseObject3 = JSON.parse(jsonText3);
+
+     res.send(responseObject3)
+  });
+
+    routes.post('/AssinarProposta', async (req, res) => {
+
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+    const payload = req.body
+
+
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/AssinarProposta'
+
+        const response2 = await axios.post(url, payload,headers);
+
+        const jsonText3 = JSON.stringify(response2.data);
+        const responseObject3 = JSON.parse(jsonText3);
+
+     res.send(responseObject3)
+  });
+
+ routes.post('/CancelarFormalizacao',  async (req, res) => {
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+    const payload = req.body
+
+
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/CancelarFormalizacao'
+
+        const response2 = await axios.post(url, payload,headers);
+
+        const jsonText3 = JSON.stringify(response2.data);
+        const responseObject3 = JSON.parse(jsonText3);
+
+     res.send(responseObject3)
+  });
+
+   routes.post('/Artefatos', async (req, res) => {
+
+
+    const headers = {
+      headers: {
+       'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+    const payload = req.body
+
+
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
+
+        const response2 =  await axios.post(url, payload,headers);
+
+        const jsonText3 = JSON.stringify(response2.data);
+        const responseObject3 = JSON.parse(jsonText3);
+
+        res.send(responseObject3)
+  });
+
+
+  routes.post('ReabrirFormalizacao', async (req, res) => {
+
+
+
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+    const payload = req.body
+
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/ReabrirFormalizacao'
+
+        const response2 = await axios.post(url, payload,headers);
+
+        const jsonText3 = JSON.stringify(response2.data);
+        const responseObject3 = JSON.parse(jsonText3);
+
+        res.send(responseObject3)
+  });
 
 module.exports = routes;
 
