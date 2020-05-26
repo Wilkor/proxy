@@ -324,6 +324,9 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
 
 
   console.log(req.headers['authorization'])
+
+  console.log(req.body);
+  
     const headers = {
       headers: {
         'Content-Type': 'application/json',
