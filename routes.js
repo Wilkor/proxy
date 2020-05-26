@@ -323,7 +323,7 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
   routes.post('/AcompanhamentoFormalizacao', async (req, res) => {
 
 
-
+  console.log(req.headers['authorization'])
     const headers = {
       headers: {
         'Content-Type': 'application/json',
