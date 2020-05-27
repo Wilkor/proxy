@@ -58,14 +58,14 @@ routes.post('/threads', (req, res) => {
 
 routes.post('/account', async (req, res) => {
 
- const {acceskey} = req.headers;
+ const {accesskey} = req.headers;
 
 const identify = uuidv4();
 
 const headers = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': acceskey
+        'Authorization': accesskey
       }}
  const payload = {  
                 "id": "123",
@@ -77,31 +77,20 @@ const headers = {
                     "name": "Rud",
                     "gender":"male",
                       "extras":{
-                         "identity":"11991279986"
+                         "identity":"11991279986_27936315829"
                       }
                 }
                 }
- const payload2 =   {
-        "id": "1231",
-        "method": "set",
-        "uri":  "/resources/11991279986",
-           "type": "application/json",
-           "resource": {
-            "LinkBiometria":" https://assinatura-digital.com.br",
-            "broadcastOrigem":"safraprodconsigbiowa_boas_vindas_1",
-            "propostas": [
-            {
-                "proposta": "123",
-                "valor": "25,40",
-                "status": "ativa",
-                "Link_CET": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-                "Link_CCB": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-                "StatusProposta": "Ativo/Assinado/Ilegível/Cancelado/Pago",
-                "Produto": "Refin"
-            }]
-     }
-
- }
+ const payload2 =  {
+    "Proposta": "10611945",
+    "Valor": "120.40",
+    "StatusProposta": "ativo",
+    "Produto": "REFIN",
+    "LinkBiometria": "https://epfweb.safra.com.br/formalizacao/#/sf-formalizacao/login/b4056e86210220",
+    "LinkCcb": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
+    "LinkCet": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
+    "Template": ""
+}
 
    const response = await axios.post(`${baseUrl}/commands`, payload,headers);
    const jsonText = JSON.stringify (response.data);
@@ -204,6 +193,10 @@ routes.post('/uritobase64', (req,res) => {
       request(uri).pipe(fs.createWriteStream('./download/' + fileName)).on('close', () => {
       res.status(202).json({base64: new Buffer(fs.readFileSync('./download/'+ fileName)).toString('base64')})
     });
+
+
+
+
 
   });
 
@@ -386,25 +379,55 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
      res.send(responseObject3)
   });
 
-   routes.post('/Artefatos', async (req, res) => {
+   routes.post('/Artefatos',  (req, res) => {
 
 
-    const headers = {
+      const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
+
+
+    
+
+
+      request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
+
+
+
+        console.log(req.headers['authorization'])
+
+   const headers = {
       headers: {
        'Content-Type': 'application/json',
         'Authorization': req.headers['authorization']
       }}
-    const payload = req.body
 
+       
+     const payload = {
+                "idProposta": idProposta,
+                "idArtefato": idArtefato ,
+                "idCanal": idCanal,
+                "arquivo": new Buffer(fs.readFileSync('./download/'+ nomeArquivo)).toString('base64'),
+               "nomeArquivo": nomeArquivo
+             }
+  
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
-        const response2 =  await axios.post(url, payload,headers);
+         axios.post(url, payload,headers).then((resp) => {
 
-        const jsonText3 = JSON.stringify(response2.data);
-        const responseObject3 = JSON.parse(jsonText3);
 
-        res.send(responseObject3)
+            const jsonText3 = JSON.stringify(resp.data);
+            const responseObject3 = JSON.parse(jsonText3);
+    
+          res.send(responseObject3)
+
+        });
+
+
+    
+
+    });
+
+
   });
 
 
