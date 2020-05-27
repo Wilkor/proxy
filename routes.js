@@ -47,7 +47,6 @@ routes.get('/pdf/:id',  (req, res) => {
 
 routes.post('/logs', (req, res) => {
  const {type} = req.body;
- console.log("logando", type)
  res.status(200).json({message:'ok', type:'type'});
 
 });
@@ -151,8 +150,6 @@ routes.post('/base64', async (req, res) => {
                 "arquivo": enc,
                 "nomeArquivo": nomeArquivo
              }
-  
-            console.log(payload2,headers2)
              
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
@@ -247,7 +244,7 @@ routes.post('/uritobase64', (req,res) => {
   });
   routes.post('/talking', (req,res) => {
    
-     console.log(req.body);
+    
   });
   
   routes.post('/schedule', async (req,res) => {
@@ -344,8 +341,6 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
         const response2 = await axios.post(url, payload,headers);
         const jsonText3 = JSON.stringify(response2.data);
         const responseObject3 = JSON.parse(jsonText3);
-
-        console.log(responseObject3)
 
      res.send(responseObject3)
   });
