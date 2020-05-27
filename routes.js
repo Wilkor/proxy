@@ -116,35 +116,49 @@ res.status(200).json(responseObject2);
 
 routes.post('/base64', async (req, res) => {
 
- const {history} = req.body;
-
- const str = JSON.stringify(history);
- const enc = encode.encode(str,'base64')
+   const {accesskey, identity} = req.headers;
+   const {idProposta, idArtefato, idCanal, nomeArquivo} = req.body;
 
     const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accesskey
+      }}
+  const payload = {  
+            "id": uuidv4(),
+            "method": "get",
+            "uri": `/threads/${identity}?$take=100`
+}
+        
+    const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
+
+    const str = JSON.stringify(response2.data);
+    const enc = encode.encode(str,'base64');
+
+    const headers2 = {
       headers: {
        'Content-Type': 'application/json',
         'Authorization': req.headers['authorization']
       }}
        
-     const payload = {
+     const payload2 = {
                 "idProposta": idProposta,
                 "idArtefato": idArtefato,
                 "idCanal": idCanal,
                 "arquivo": enc,
-               "nomeArquivo": nomeArquivo
+                "nomeArquivo": nomeArquivo
              }
   
+             
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
-        axios.post(url, payload,headers).then((resp) => {
+        axios.post(url, payload2,headers2).then((resp) => {
 
            const jsonText3 = JSON.stringify(resp.data);
            const responseObject3 = JSON.parse(jsonText3);
            res.status(200).send(responseObject3)
 
        });
-res.status(200).json({base64:enc});
 })
 
 routes.post('/updatestatus', async (req, res) => {
@@ -427,7 +441,7 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
              }
   
 
-        
+        console.log('artefato', payload)
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
