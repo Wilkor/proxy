@@ -159,6 +159,10 @@ routes.post('/base64', async (req, res) => {
            const responseObject3 = JSON.parse(jsonText3);
            res.status(200).send(responseObject3)
 
+       }).catch((err) => {
+           
+            res.status(400).send(err)
+
        });
 })
 
@@ -306,12 +310,13 @@ routes.post('/uritobase64', (req,res) => {
         "id":uuidv4(),
         "to": "postmaster@scheduler.msging.net",
         "method": "get",
-        "uri": "/schedules?$take=999999"
+        "uri": "/schedules?$take=999999&$skip=800"
         }
 
     const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
 
 
+      console.log(response2.data.resource.items)
         const data = response2.data.resource.items.filter((e) => {
              return e.status === 'scheduled'  
         }).filter((d) => {
@@ -324,7 +329,7 @@ routes.post('/uritobase64', (req,res) => {
 
   });
 
-routes.post('/ValidacaoDadosCliente', async (req, res) => {
+routes.post('/ValidacaoDadosCliente', (req, res) => {
 
 
 
@@ -335,14 +340,22 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
       }}
     const payload = req.body
 
+    console.log(payload)
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/ValidacaoDadosCliente';
 
-        const response2 = await axios.post(url, payload,headers);
-        const jsonText3 = JSON.stringify(response2.data);
-        const responseObject3 = JSON.parse(jsonText3);
+       axios.post(url, payload,headers).then((resp) => {
 
-     res.send(responseObject3)
+           const jsonText3 = JSON.stringify(resp.data);
+           const responseObject3 = JSON.parse(jsonText3);
+           res.send(responseObject3);
+
+       }).catch((err) => {
+          res.status(400).send(err) 
+       })
+
+     
+
   });
 
   routes.post('/AcompanhamentoFormalizacao', AcompanhamentoFormalizacao);
