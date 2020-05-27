@@ -9,6 +9,9 @@ const path = require('path');
 const  baseUrl = 'https://msging.net';
 const encode = require('nodejs-base64-encode');
 const request = require('request');
+
+const AcompanhamentoFormalizacao = require('./Controllers/ControllerAcompanamento');
+
 app.use(cors());
 app.use(express.json());
 
@@ -149,6 +152,7 @@ routes.post('/base64', async (req, res) => {
                 "nomeArquivo": nomeArquivo
              }
   
+            console.log(payload2,headers2)
              
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
@@ -233,17 +237,12 @@ routes.post('/uritobase64', (req,res) => {
       res.status(202).json({base64: new Buffer(fs.readFileSync('./download/'+ fileName)).toString('base64')})
     });
 
-
-
-
-
   });
 
   routes.post('/doc', (req,res) => {
 
       const {base64} = req.body
       res.status(200).json({msg:'recebido',base:base64})
-
 
   });
   routes.post('/talking', (req,res) => {
@@ -331,6 +330,7 @@ routes.post('/uritobase64', (req,res) => {
 routes.post('/ValidacaoDadosCliente', async (req, res) => {
 
 
+
     const headers = {
       headers: {
         'Content-Type': 'application/json',
@@ -341,41 +341,16 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/ValidacaoDadosCliente';
 
-
-        console.log(url, payload,headers)
-
         const response2 = await axios.post(url, payload,headers);
-
         const jsonText3 = JSON.stringify(response2.data);
         const responseObject3 = JSON.parse(jsonText3);
+
+        console.log(responseObject3)
 
      res.send(responseObject3)
   });
 
-  routes.post('/AcompanhamentoFormalizacao', async (req, res) => {
-
-
-  console.log(req.headers['authorization'])
-
-  console.log(req.body);
-  
-    const headers = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': req.headers['authorization']
-      }}
-    const payload = req.body
-
-
-        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/AcompanhamentoFormalizacao'
-
-        const response2 = await axios.post(url, payload,headers);
-
-        const jsonText3 = JSON.stringify(response2.data);
-        const responseObject3 = JSON.parse(jsonText3);
-
-     res.send(responseObject3)
-  });
+  routes.post('/AcompanhamentoFormalizacao', AcompanhamentoFormalizacao);
 
     routes.post('/AssinarProposta', async (req, res) => {
 
@@ -431,7 +406,6 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
         'Authorization': req.headers['authorization']
       }}
 
-       
      const payload = {
                 "idProposta": idProposta,
                 "idArtefato": idArtefato,
@@ -440,9 +414,6 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
                "nomeArquivo": nomeArquivo
              }
   
-
-        console.log('artefato', payload)
-
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
         axios.post(url, payload,headers).then((resp) => {
@@ -451,12 +422,9 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
            const jsonText3 = JSON.stringify(resp.data);
            const responseObject3 = JSON.parse(jsonText3);
     
-         res.status(200).send(responseObject3)
+          res.status(200).send(responseObject3)
 
        });
-
-
-    
 
     });
 
@@ -465,8 +433,6 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
 
 
   routes.post('ReabrirFormalizacao', async (req, res) => {
-
-
 
     const headers = {
       headers: {
