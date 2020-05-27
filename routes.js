@@ -117,8 +117,33 @@ res.status(200).json(responseObject2);
 routes.post('/base64', async (req, res) => {
 
  const {history} = req.body;
+
  const str = JSON.stringify(history);
  const enc = encode.encode(str,'base64')
+
+    const headers = {
+      headers: {
+       'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
+       
+     const payload = {
+                "idProposta": idProposta,
+                "idArtefato": idArtefato,
+                "idCanal": idCanal,
+                "arquivo": enc,
+               "nomeArquivo": nomeArquivo
+             }
+  
+        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
+
+        axios.post(url, payload,headers).then((resp) => {
+
+           const jsonText3 = JSON.stringify(resp.data);
+           const responseObject3 = JSON.parse(jsonText3);
+           res.status(200).send(responseObject3)
+
+       });
 res.status(200).json({base64:enc});
 })
 
@@ -382,17 +407,9 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
    routes.post('/Artefatos',  (req, res) => {
 
 
-      const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
+    const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
-
-    
-
-
-      request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
-
-
-
-        console.log(req.headers['authorization'])
+    request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
 
    const headers = {
       headers: {
