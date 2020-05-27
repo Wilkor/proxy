@@ -403,24 +403,26 @@ routes.post('/ValidacaoDadosCliente', async (req, res) => {
        
      const payload = {
                 "idProposta": idProposta,
-                "idArtefato": idArtefato ,
+                "idArtefato": idArtefato,
                 "idCanal": idCanal,
                 "arquivo": new Buffer(fs.readFileSync('./download/'+ nomeArquivo)).toString('base64'),
                "nomeArquivo": nomeArquivo
              }
   
 
+        
+
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
-         axios.post(url, payload,headers).then((resp) => {
+        axios.post(url, payload,headers).then((resp) => {
 
 
-            const jsonText3 = JSON.stringify(resp.data);
-            const responseObject3 = JSON.parse(jsonText3);
+           const jsonText3 = JSON.stringify(resp.data);
+           const responseObject3 = JSON.parse(jsonText3);
     
-          res.send(responseObject3)
+         res.status(200).send(responseObject3)
 
-        });
+       });
 
 
     
