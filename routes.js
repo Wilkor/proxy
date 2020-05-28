@@ -62,15 +62,15 @@ routes.post('/account', async (req, res) => {
 
  const {accesskey} = req.headers;
 
-const identify = uuidv4();
+ const identify = uuidv4();
 
-const headers = {
+ const headers = {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': accesskey
       }}
- const payload = {  
-                "id": "123",
+  const payload = {  
+                "id": identify,
                 "method": "set",
                 "uri": "/contacts",
                 "type": "application/vnd.lime.contact+json",
@@ -79,30 +79,19 @@ const headers = {
                     "name": "Rud",
                     "gender":"male",
                       "extras":{
-                         "identity":"11991279986_27936315829"
+                         "identity":"11991279986_91566798825"
                       }
                 }
                 }
- const payload2 =  {
-    "Proposta": "10611945",
-    "Valor": "120.40",
-    "StatusProposta": "ativo",
-    "Produto": "REFIN",
-    "LinkBiometria": "https://epfweb.safra.com.br/formalizacao/#/sf-formalizacao/login/b4056e86210220",
-    "LinkCcb": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-    "LinkCet": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-    "Template": ""
-}
+ 
 
    const response = await axios.post(`${baseUrl}/commands`, payload,headers);
    const jsonText = JSON.stringify (response.data);
    const responseObject = JSON.parse (jsonText);
 
-    const response2 = await axios.post(`${baseUrl}/commands`, payload2,headers);
-   const jsonText2 = JSON.stringify (response2.data);
-   const responseObject2 = JSON.parse (jsonText2);
+
     
-    res.status(200).json({responseObject,responseObject2});
+    res.status(200).json(responseObject);
     
 })
 
@@ -169,7 +158,7 @@ routes.post('/base64', async (req, res) => {
 routes.post('/updatestatus', async (req, res) => {
 
  const {acceskey} = req.headers;
- const {status, id} = req.body;
+ const {status, id, localizable_params} = req.body;
  const identify = uuidv4();
 
 const headers = {
@@ -184,21 +173,42 @@ const headers = {
         "uri":  "/resources/" + id,
            "type": "application/json",
            "resource": {
-                "Proposta": "10166599",
+                "Proposta": "10611953",
                 "Valor": "120.40",
-                "StatusProposta": status,
+                "StatusProposta": 'teste',
                 "Produto": "REFIN",
                 "LinkBiometria": "https://epfweb.safra.com.br/formalizacao/#/sf-formalizacao/login/b4056e86210220",
                 "LinkCcb": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
                 "LinkCet": "https://8080-bce20572-8690-48ba-8bf9-0cda8fb82fdd.ws-us02.gitpod.io/pdf/YmFuY29zYWZyYTEyMw==",
-                "Template": "safraprodconsigbiowa_boas_vindas_2"
+                "Template": status
                }
 
  }
 
+ const payload3 = {
+  "id": identify,
+  "to": "5511970950034@wa.gw.msging.net",
+  "type": "application/json",
+  "content": {
+    "type": "hsm",
+    "hsm": {
+      "namespace": "ad45c45f_5f5f_995f_636a_60da8e6532cc",
+      "element_name": status,
+      "language": {
+                "policy": "deterministic",
+                "code": "pt_BR"
+      },
+      localizable_params
+    }
+  }
+}
+
     const response2 = await axios.post(`${baseUrl}/commands`, payload2,headers);
     const jsonText2 = JSON.stringify (response2.data);
     const responseObject2 = JSON.parse (jsonText2);
+
+
+    const response3 = await axios.post(`${baseUrl}/messages`, payload3,headers);
     
     res.status(200).json(responseObject2);
     
@@ -422,6 +432,8 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
                "nomeArquivo": nomeArquivo
              }
   
+
+         console.log('file', payload.nomeArquivo);
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
         axios.post(url, payload,headers).then((resp) => {
