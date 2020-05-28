@@ -10,6 +10,7 @@ const  baseUrl = 'https://msging.net';
 const encode = require('nodejs-base64-encode');
 const request = require('request');
 
+
 const AcompanhamentoFormalizacao = require('./Controllers/ControllerAcompanamento');
 
 app.use(cors());
@@ -400,6 +401,7 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
       }}
     const payload = req.body
 
+    console.log('cancelamento', payload)
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/CancelarFormalizacao'
 
