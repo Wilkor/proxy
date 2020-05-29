@@ -143,7 +143,7 @@ table += `<html> <style>
 
 .messageContainer {
   display: flex;
-  justify-content: flex-end;
+  margin-left: 250px;
   padding: 0 1%;
   margin-top: 3px;
 }
@@ -154,10 +154,17 @@ table += `<html> <style>
   font-family: Helvetica;
   color: #828282;
   letter-spacing: 0.3px;
+
 }
 
 .pl-10 {
   padding-left: 10px;
+  width: 40em; word-wrap: break-word;
+  
+}
+.pl-11 {
+  padding-left: 10px;
+  
   
 }
 
@@ -170,7 +177,7 @@ table += `<html> <style>
 }
 
 .justifyEnd {
-  justify-content: flex-end;
+  margin-left: 900px;
 }
 
 .colorWhite {
@@ -224,7 +231,7 @@ var options = {
       }).map((e) => {
           return {
             autor:e.autor,
-            content:e.content,
+            content: typeof e.content == 'object' ? JSON.stringify(e.content): e.content,
             data: e.date.split('T')[0].split('-').reverse().join('/'),
             hora: e.date.split('T')[1].split('.')[0]
           }
@@ -247,11 +254,11 @@ var options = {
         }else{
 
           table += `
-          <div class="messageContainer justifyStart">
+          <div class="messageContainer justifyEnd">
           <div class="messageBox backgroundBlue">
-            <p class="sentText pl-10  colorWhite">${e.content}</p>
+            <p class="sentText pl-11  colorWhite">${e.content}</p>
           </div>
-          <p class="sentText pl-10 ">Cliente - ${e.data} - ${e.hora}</p>
+          <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
           </div>
           ` 
         }
@@ -284,21 +291,21 @@ var options = {
            const jsonText3 = JSON.stringify(resp.data);
            const responseObject3 = JSON.parse(jsonText3);
 
-           const directory = './save_file_path';
+          //  const directory = './save_file_path';
 
-            fs.readdir(directory, (err, files) => {
-            if (err) throw err;
+          //   fs.readdir(directory, (err, files) => {
+          //   if (err) throw err;
 
-            for (const file of files) {
-              fs.unlink(path.join(directory, file), err => {
-                if (err) throw err;
-              });
-            }
-            });
+          //   for (const file of files) {
+          //     fs.unlink(path.join(directory, file), err => {
+          //       if (err) throw err;
+          //     });
+          //   }
+          //   });
 
-            console.log(base64History)
+            //console.log(base64History)
 
-           res.status(200).send(responseObject3)
+           res.status(200).send(conversaBot)
 
        }).catch((err) => {
            
