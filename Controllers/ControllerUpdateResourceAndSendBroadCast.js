@@ -5,7 +5,7 @@
   
   updateResourceAndSendBroadCast = async (req, res) => {
   const {acceskey} = req.headers;
-  const {status, id, localizable_params} = req.body;
+  const {status, id, localizable_params, to} = req.body;
   const identify = uuid.uuid();
  
  const headers = {
@@ -34,7 +34,7 @@
  
   const payload3 = {
    "id": identify,
-   "to": "5511970950034@wa.gw.msging.net",
+    to,
    "type": "application/json",
    "content": {
      "type": "hsm",
@@ -53,8 +53,6 @@
      const response2 = await axios.post(`${config.baseUrl}/commands`, payload2,headers);
      const jsonText2 = JSON.stringify (response2.data);
      const responseObject2 = JSON.parse (jsonText2);
- 
- 
      const response3 = await axios.post(`${config.baseUrl}/messages`, payload3,headers);
      
      res.status(200).json(responseObject2);

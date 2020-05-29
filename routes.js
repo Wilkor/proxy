@@ -20,10 +20,11 @@ const ControllerToken = require('./Controllers/ControllerToken');
 const ControllerAccount = require('./Controllers/ControllerAccount');
 const ControllerThreads = require('./Controllers/ControllerThreads');
 const ControllerGetPdf = require('./Controllers/ControllerGetPdf');
+const ControllerRemoveFile = require('./Controllers/ControllerRemoveFile');
 
+const ControllerLogFile = require('./Controllers/ControllerLogFile');
 
 const routes = express.Router();
-
 
     routes.get('/', (req, res) => {
 
@@ -43,11 +44,15 @@ const routes = express.Router();
     routes.post('/schedule', ControllersSchedules.scheduled);
     routes.post('/schedule/list', ControllersSchedules.scheduledList);
     routes.post('/ValidacaoDadosCliente', ControllersValidaDadosCliente.validaDadosCliente);
-    routes.post('/AcompanhamentoFormalizacao', AcompanhamentoFormalizacao);
+    routes.post('/AcompanhamentoFormalizacao', AcompanhamentoFormalizacao.acompanhamento);
     routes.post('/AssinarProposta', ControllerAssinarProposta.assinarProposta);
     routes.post('/CancelarFormalizacao', ControllerCancelaFormalizacao.cancelaFormalizacao );
     routes.post('/Artefatos',ControllersArtefatos.artefatoImage);
-    routes.post('ReabrirFormalizacao', ControllerReabrirFormalizacao.reabrirFormalizacao );
+    routes.post('/ReabrirFormalizacao', ControllerReabrirFormalizacao.reabrirFormalizacao );
+    routes.get('/removefile', ControllerRemoveFile.removeUploads);
+    routes.get('/pdf', ControllerLogFile.logFilePdf);
+    routes.get('/image', ControllerLogFile.logFileDownload);
+
 
 module.exports = routes;
 

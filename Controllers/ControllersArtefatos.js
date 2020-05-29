@@ -1,20 +1,19 @@
 
 const axios = require('axios');
-const  fs = require("fs");
 const request = require('request');
-const config = require('../config/index');
 const  pdf = require('html-pdf');
 const  moment = require('moment'); 
-const encode = require('nodejs-base64-encode');
+const  fs = require("fs");
 
 const uuid = require('../utils/index');
+const config = require('../config/index');
 
 
 artefatoImage = async (req, res) => {
 
   const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
-  request(uri).pipe(fs.createWriteStream('../download/' + nomeArquivo)).on('close',  () => {
+  request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
 
  const headers = {
     headers: {
@@ -26,38 +25,20 @@ artefatoImage = async (req, res) => {
               "idProposta": idProposta,
               "idArtefato": idArtefato,
               "idCanal": idCanal,
-              "arquivo": new Buffer(fs.readFileSync('../download/'+ nomeArquivo)).toString('base64'),
+              "arquivo": new Buffer(fs.readFileSync('./download/'+ nomeArquivo)).toString('base64'),
              "nomeArquivo": nomeArquivo
-           }
+   }
+      axios.post(config.urlArtefato, payload,headers).then((resp) => {
 
+        const jsonText3 = JSON.stringify(resp.data);
+        const responseObject3 = JSON.parse(jsonText3);
 
-       
-      const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
+       res.send(responseObject3)
 
-      axios.post(url, payload,headers).then((resp) => {
-
-
-         const jsonText3 = JSON.stringify(resp.data);
-         const responseObject3 = JSON.parse(jsonText3);
-
-         const directory = '../download';
-
-         fs.readdir(directory, (err, files) => {
-         if (err) throw err;
-
-         for (const file of files) {
-           fs.unlink(path.join(directory, file), err => {
-             if (err) throw err;
-           });
-         }
-         });
-
-  
-        res.status(200).send(responseObject3)
-
-     }).catch((err) => {
-      res.status(400).send(err)
+      }).catch((err) => {
+       res.status(err.response.status).json({error: err.response.statusText})
      });
+
 
   });
 
@@ -243,17 +224,16 @@ artefatosHistory = async (req, res) => {
           const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
   
           axios.post(url, payload2,headers2).then((resp) => {
-  
-             const jsonText3 = JSON.stringify(resp.data);
-             const responseObject3 = JSON.parse(jsonText3);
 
-             res.status(200).send(conversaBot)
-  
-         }).catch((err) => {
-             
-            res.status(400).send(err)
-  
+            const jsonText3 = JSON.stringify(resp.data);
+            const responseObject3 = JSON.parse(jsonText3);
+    
+           res.send(responseObject3)
+ 
+          }).catch((err) => {
+           res.status(err.response.status).json({error: err.response.statusText})
          });
+ 
   
         });
         

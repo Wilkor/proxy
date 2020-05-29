@@ -1,7 +1,7 @@
 const axios = require('axios');
+const config = require('../config/index');
 
-
-module.exports =  async (req, res) => {
+acompanhamento =  (req, res) => {
 
   
     const headers = {
@@ -11,14 +11,17 @@ module.exports =  async (req, res) => {
       }}
     const payload = req.body
 
+        axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
 
-        const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/AcompanhamentoFormalizacao'
+           const jsonText3 = JSON.stringify(resp.data);
+           const responseObject3 = JSON.parse(jsonText3);
+   
+          res.send(responseObject3)
 
-        const response2 = await axios.post(url, payload,headers);
+         }).catch((err) => {
+          res.status(err.response.status).json({error: err.response.statusText})
+        });
 
-        const jsonText3 = JSON.stringify(response2.data);
-        const responseObject3 = JSON.parse(jsonText3);
-
-     res.send(responseObject3)
+      }
   
-}
+module.exports = {acompanhamento}

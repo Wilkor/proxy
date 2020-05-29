@@ -1,13 +1,19 @@
 const axios = require('axios');
- 
-token = async (req, res) => {
+const config = require('../config/index');
 
-  const resp = await axios.post('https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Token', req.body)
+token =  (req, res) => {
+  
+    axios.post(config.urlToken, req.body).then((resp) => {
+      
+    const jsonText3 = JSON.stringify(resp.data);
+    const responseObject3 = JSON.parse(jsonText3);
+    res.send(responseObject3)
 
-   const jsonText2 = JSON.stringify (resp.data);
-   const responseObject2 = JSON.parse (jsonText2);
+  }).catch((err) => {
+  
+   res.status(err.response.status).json({error: err.response.statusText})
+ });
 
-res.status(200).json(responseObject2);
 }
 module.exports = {
   token
