@@ -577,13 +577,6 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
     const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
 
-    a.resource.items.map((e) => {
-    
-       if(e.direction == 'sent') {
-         re
-       }
-    })
-
     request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
 
    const headers = {
