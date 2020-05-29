@@ -496,8 +496,10 @@ routes.post('/uritobase64', (req,res) => {
         });
         const jsonText3 = JSON.stringify(data);
         const responseObject3 = JSON.parse(jsonText3);
+
+         
         
-        res.send(responseObject3);
+        res.send({tamanho: data.length});
 
   });
 
