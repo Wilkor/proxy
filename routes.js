@@ -489,8 +489,6 @@ routes.post('/uritobase64', (req,res) => {
 
     const response2 = await axios.post(`${baseUrl}/commands`, payload,headers);
 
-
-      console.log(response2.data.resource.items)
         const data = response2.data.resource.items.filter((e) => {
              return e.status === 'scheduled'  
         }).filter((d) => {
@@ -513,8 +511,6 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
         'Authorization': req.headers['authorization']
       }}
     const payload = req.body
-
-    console.log(payload)
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/ValidacaoDadosCliente';
 
@@ -563,8 +559,6 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
         'Authorization': req.headers['authorization']
       }}
     const payload = req.body
-
-    console.log('cancelamento', payload)
 
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/CancelarFormalizacao'
 
