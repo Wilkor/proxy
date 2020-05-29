@@ -435,7 +435,7 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
              }
   
 
-         console.log('file', payload.nomeArquivo);
+         console.log('file', payload);
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
         axios.post(url, payload,headers).then((resp) => {
@@ -446,6 +446,8 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
     
           res.status(200).send(responseObject3)
 
+       }).catch((err) => {
+        res.status(400).send(err)
        });
 
     });
