@@ -418,6 +418,8 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
 
     const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
+    console.log('payload', req.body);
+
     request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
 
    const headers = {
@@ -435,7 +437,7 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
              }
   
 
-         console.log('file', payload);
+         
         const url = 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/Artefatos'
 
         axios.post(url, payload,headers).then((resp) => {
