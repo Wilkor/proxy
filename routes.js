@@ -296,6 +296,7 @@ var options = {
             }
             });
 
+            console.log(base64History)
 
            res.status(200).send(responseObject3)
 
@@ -605,6 +606,19 @@ routes.post('/ValidacaoDadosCliente', (req, res) => {
 
            const jsonText3 = JSON.stringify(resp.data);
            const responseObject3 = JSON.parse(jsonText3);
+
+           const directory = './download';
+
+           fs.readdir(directory, (err, files) => {
+           if (err) throw err;
+
+           for (const file of files) {
+             fs.unlink(path.join(directory, file), err => {
+               if (err) throw err;
+             });
+           }
+           });
+
     
           res.status(200).send(responseObject3)
 
