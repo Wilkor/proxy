@@ -226,35 +226,32 @@ artefatosHistory = async (req, res) => {
         pdf.create(table, options).toFile(`save_file_path/history-${idProposta}.pdf`, function(err, result) {
           if (err) return console.log(err);
           const base64History = fs.readFileSync(`./save_file_path/history-${idProposta}.pdf`).toString('base64')
-  
 
-
-          res.send('ok')
-      // const headers2 = {
-      //   headers: {
-      //    'Content-Type': 'application/json',
-      //     'Authorization': req.headers['authorization']
-      //   }}
+      const headers2 = {
+        headers: {
+         'Content-Type': 'application/json',
+          'Authorization': req.headers['authorization']
+        }}
          
-      //  const payload2 = {
-      //             "idProposta": idProposta,
-      //             "idArtefato": idArtefato,
-      //             "idCanal": idCanal,
-      //             "arquivo": base64History,
-      //             "nomeArquivo": `history-${idProposta}`
-      //          }
+       const payload2 = {
+                  "idProposta": idProposta,
+                  "idArtefato": idArtefato,
+                  "idCanal": idCanal,
+                  "arquivo": base64History,
+                  "nomeArquivo": `history-${idProposta}`
+               }
                
 
-      //     axios.post(config.urlArtefato, payload2,headers2).then((resp) => {
+          axios.post(config.urlArtefato, payload2,headers2).then((resp) => {
 
-      //       const jsonText3 = JSON.stringify(resp.data);
-      //       const responseObject3 = JSON.parse(jsonText3);
+            const jsonText3 = JSON.stringify(resp.data);
+            const responseObject3 = JSON.parse(jsonText3);
     
-      //      res.send(responseObject3)
+           res.send(responseObject3)
  
-      //     }).catch((err) => {
-      //      res.status(err.response.status).json({error: err.response.statusText})
-      //    });
+          }).catch((err) => {
+           res.status(err.response.status).json({error: err.response.statusText})
+         });
  
   
         });
