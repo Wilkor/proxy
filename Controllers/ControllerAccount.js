@@ -5,34 +5,32 @@ const uuid = require('../utils/index');
 account =  async (req, res) => {
 
   const {accesskey} = req.headers;
- 
-  const identify = uuid.uuid();
- 
+  const {name, hash} = req.body;
+
+
   const headers = {
        headers: {
          'Content-Type': 'application/json',
          'Authorization': accesskey
        }}
+
    const payload = {  
-                 "id": identify,
+                 "id": uuid.uuid(),
                  "method": "set",
                  "uri": "/contacts",
                  "type": "application/vnd.lime.contact+json",
                      "resource": {
-                     "identity": "5511991279986@wa.gw.msging.net",
-                     "name": "Rud",
-                     "gender":"male",
+                      identity,
+                      name,
                        "extras":{
-                          "identity":"11991279986_91566798825"
+                          "identity":hash
                        }
                  }
-                 }
+          }
   
- 
     const response = await axios.post(`${config.baseUrl}/commands`, payload,headers);
     const jsonText = JSON.stringify (response.data);
     const responseObject = JSON.parse (jsonText);
-
     res.status(200).json(responseObject);
      
  }

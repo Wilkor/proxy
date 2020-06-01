@@ -57,7 +57,8 @@ const uuid = require('../utils/index');
       'Content-Type': 'application/json',
       'Authorization': accesskey
     }}
-const payload = {  
+    
+  const payload = {  
       "id":uuid.uuid(),
       "to": "postmaster@scheduler.msging.net",
       "method": "get",
