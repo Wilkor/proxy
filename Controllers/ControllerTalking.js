@@ -5,11 +5,10 @@ const axios = require('axios');
  const multThree = userInfo.split('.net')[1];
  const userId = userInfo.split('.net')[0];
 
- if(multThree % 3 === 0){
 
-   console.log('verdade')
+   console.log(multThree)
    res.send('ok')
- }
+ 
 
 }
 
