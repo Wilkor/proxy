@@ -11,6 +11,7 @@ const config = require('../config/index');
 
 artefatoImage = async (req, res) => {
 
+
   const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
   request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
