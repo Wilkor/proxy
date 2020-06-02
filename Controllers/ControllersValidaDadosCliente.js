@@ -20,8 +20,6 @@
         res.status(resp.response.status).send(responseObject3);
 
     }).catch((err) => {
-
-       console.log(err.response);
       
       res.status(err.response.status).json({error: err.response.statusText})
    });
