@@ -14,10 +14,15 @@
 
         const jsonText3 = JSON.stringify(resp.data);
         const responseObject3 = JSON.parse(jsonText3);
-        res.status(resp.response.status).send(responseObject3);
+        console.log(resp.response);
+        res.send('oi');
+        //res.status(resp.response.status).send(responseObject3);
 
     }).catch((err) => {
-      res.status(err.response.status).json({error: err.response.statusText})
+
+       console.log(err.response);
+       res.send('error');
+      //res.status(err.response.status).json({error: err.response.statusText})
    });
 
 }
