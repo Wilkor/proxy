@@ -7,7 +7,7 @@ const path = require('path');
 //  const userId = userInfo.split('.net')[0];
 
 
-   console.log('opa', path.resolve('../download'))
+   console.log('opa', __dirname +'..')
    res.send('ok')
  
 

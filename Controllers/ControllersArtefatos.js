@@ -12,7 +12,11 @@ const config = require('../config/index');
 
 artefatoImage = async (req, res) => {
 
-
+  try {
+    fs.mkdirSync(path.join(__dirname, '../download/'))
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err
+  }
   const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
   request(uri).pipe(fs.createWriteStream(path.resolve('./download/'+ nomeArquivo))).on('close',  () => {
