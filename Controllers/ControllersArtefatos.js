@@ -31,7 +31,7 @@ artefatoImage = async (req, res) => {
               "idProposta": idProposta,
               "idArtefato": idArtefato,
               "idCanal": idCanal,
-              "arquivo": new Buffer.alloc(1024,fs.readFileSync(path.resolve('./download/'+ nomeArquivo))).toString('base64'),
+              "arquivo": new Buffer.alloc(15000,fs.readFileSync(path.resolve('./download/'+ nomeArquivo))).toString('base64'),
               "nomeArquivo": nomeArquivo
    }
       axios.post(config.urlArtefato, payload,headers).then((resp) => {
@@ -43,6 +43,7 @@ artefatoImage = async (req, res) => {
        res.status(err.response.status).json({error: err.response.statusText})
      });
 
+   
 
   });
 
