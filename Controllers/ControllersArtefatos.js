@@ -4,6 +4,7 @@ const request = require('request');
 const  pdf = require('html-pdf');
 const  moment = require('moment'); 
 const  fs = require("fs");
+const path = require("path")
 
 const uuid = require('../utils/index');
 const config = require('../config/index');
@@ -14,8 +15,8 @@ artefatoImage = async (req, res) => {
 
   const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
-  request(uri).pipe(fs.createWriteStream('./download/' + nomeArquivo)).on('close',  () => {
-
+  request(uri).pipe(fs.createWriteStream(path.resolve('./download/'+ nomeArquivo))).on('close',  () => {
+    
  const headers = {
     headers: {
      'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ artefatoImage = async (req, res) => {
               "idProposta": idProposta,
               "idArtefato": idArtefato,
               "idCanal": idCanal,
-              "arquivo": new Buffer.alloc(1024,fs.readFileSync('./download/'+ nomeArquivo)).toString('base64'),
+              "arquivo": new Buffer.alloc(1024,fs.readFileSync(path.resolve('./download/'+ nomeArquivo))).toString('base64'),
               "nomeArquivo": nomeArquivo
    }
       axios.post(config.urlArtefato, payload,headers).then((resp) => {
