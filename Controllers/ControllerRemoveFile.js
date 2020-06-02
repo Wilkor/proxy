@@ -7,11 +7,11 @@ removeUploads = async (req,res) => {
 
   const directoryPdf = config.pdf;
 
-  fs.readdir(directoryPdf, (err, files) => {
+  fs.readdir(path.resolve(directoryPdf), (err, files) => {
   if (err) throw err;
 
   for (const file of files) {
-    fs.unlink(path.join(directoryPdf, file), err => {
+    fs.unlink(path.join(path.resolve(directoryPdf), file), err => {
       if (err) throw err;
     });
   }
@@ -20,11 +20,11 @@ removeUploads = async (req,res) => {
 
   const directoryUpload = config.uploads;
 
-  fs.readdir(directoryUpload, (err, files) => {
+  fs.readdir(path.resolve(directoryUpload), (err, files) => {
   if (err) throw err;
 
   for (const file of files) {
-    fs.unlink(path.join(directoryUpload, file), err => {
+    fs.unlink(path.join(path.resolve(directoryUpload), file), err => {
       if (err) throw err;
     });
   }

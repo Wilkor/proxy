@@ -1,12 +1,12 @@
 const fs = require('fs');
 const config = require('../config/index');
-
+const path = require("path")
 
 logFilePdf = (req, res) => {
 
 
   const dirPdf = config.pdf;
-   fs.readdir(dirPdf,  (err, files,cb) => {
+   fs.readdir(path.resolve(dirPdf),  (err, files,cb) => {
     res.send({pdf: files.length})
   });
 
@@ -16,7 +16,7 @@ logFilePdf = (req, res) => {
 logFileDownload = (req, res) => {
 
   const dirPdf = config.uploads;
-   fs.readdir(dirPdf,  (err, files,cb) => {
+   fs.readdir(path.resolve(dirPdf),  (err, files,cb) => {
     res.send({image: files.length})
   });
 
