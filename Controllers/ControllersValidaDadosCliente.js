@@ -20,8 +20,12 @@
         res.status(resp.response.status).send(responseObject3);
 
     }).catch((err) => {
-      
-      res.status(err.response.status).json({error: err.response.statusText})
+      if (err.response.status) {
+
+        res.status(err.response.status).json({error: err.response.statusText});
+      } else {
+        res.status(400).json({error: err.response.statusText});
+      }
    });
   
 
