@@ -11,19 +11,23 @@ acompanhamento =  (req, res) => {
 
     const payload = req.body;
 
-        console.log(payload);
+        try {
+          
+          axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
+  
+             const jsonText3 = JSON.stringify(resp.data);
+             const responseObject3 = JSON.parse(jsonText3);
+             res.send(responseObject3);
+             
+           }).catch((err) => {
+            res.status(err.response.status).json({error: err.response.statusText})
+          });
+        } catch (error) {
 
-        axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
+          console.log(error)
+          
+        }
 
-           const jsonText3 = JSON.stringify(resp.data);
-           const responseObject3 = JSON.parse(jsonText3);
-           res.send(responseObject3);
-           
-         }).catch((err) => {
-          console.log('payload', payload);
-          console.log('error', err.response.statusText);
-          res.status(err.response.status).json({error: err.response.statusText})
-        });
 
       }
   
