@@ -40,15 +40,21 @@ const uuid = require('../utils/index');
         await axios.post(`${config.baseUrl}/commands`, payload2,headers);
           
       });
-      const response3 = await axios.post(`${config.baseUrl}/commands`, payload,headers);
-
-      const jsonText3 = JSON.stringify(response3.data);
-      const responseObject3 = JSON.parse(jsonText3);
       
-      res.send(responseObject3);
+      axios.post(`${config.baseUrl}/commands`, payload,headers).then((resp) => {
+
+        const jsonText3 = JSON.stringify(resp.data);
+        const responseObject3 = JSON.parse(jsonText3);
+          
+       res.status(200).send(responseObject3);
+
+      }).catch((err) => {
+       res.status(err.response.status).json({error: err.response.statusText})
+     });
+    
     },
 
-   scheduledList = async (req,res) => {
+  scheduledList = async (req,res) => {
 
   const {accesskey, identity} = req.headers;
 
@@ -65,17 +71,23 @@ const uuid = require('../utils/index');
       "uri": "/schedules?$take=999999&$skip=800"
       }
 
-  const response2 = await axios.post(`${config.baseUrl}/commands`, payload,headers);
+  axios.post(`${config.baseUrl}/commands`, payload,headers).then((resp) => {
 
-      const data = response2.data.resource.items.filter((e) => {
-           return e.status === 'scheduled'  
-      }).filter((d) => {
-       return d.message.to === identity
-      });
-      const jsonText3 = JSON.stringify(data);
-      const responseObject3 = JSON.parse(jsonText3);
+    const data = resp.data.resource.items.filter((e) => {
+                return e.status === 'scheduled'  
+                }).filter((d) => {
+                return d.message.to === identity
+                });
+      
+   res.status(200).send({tamanho: data.length});
+  }).catch((err) => {
+   res.status(err.response.status).json({error: err.response.statusText})
+ });
 
-      res.send({tamanho: data.length});
+
+
+     
+ 
 
 }
 

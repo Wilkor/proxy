@@ -20,6 +20,8 @@ acompanhamento =  (req, res) => {
            res.send(responseObject3);
            
          }).catch((err) => {
+          console.log('payload', payload);
+          console.log('error', err.response.statusText);
           res.status(err.response.status).json({error: err.response.statusText})
         });
 
