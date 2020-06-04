@@ -9,6 +9,9 @@ acompanhamento =  (req, res) => {
         'Authorization': req.headers['authorization']
       }}
 
+
+    console.log('body', req.body)
+
     const payload = req.body;
 
         try {
