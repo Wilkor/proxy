@@ -3,9 +3,16 @@
 
   validaDadosCliente =  (req, res) => {
 
-  const payload = req.body;
+const {idsProposta, cpf, telefone} = req.body;
 
-  console.log('payload', payload)
+const identification =  parseInt(cpf)
+
+  const payload = {
+        idsProposta: idsProposta,
+        cpf:identification,
+        telefone: telefone
+  }
+
   const headers = {
     headers: {
       'Content-Type': 'application/json',
