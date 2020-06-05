@@ -5,7 +5,9 @@ const  cors = require('cors');
 const  app = express();
 const axios = require('axios');
 const route = require('./routes');
+
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+
 app.use(cors());
 app.use(express.json());
 
