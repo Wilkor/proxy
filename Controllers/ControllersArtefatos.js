@@ -247,9 +247,7 @@ artefatosHistory = async (req, res) => {
                   "arquivo": base64History,
                   "nomeArquivo": `history-${idProposta}`
                }
-               
-              console.log(base64History)
-
+          
           axios.post(config.urlArtefato, payload2,headers2).then((resp) => {
 
             const jsonText3 = JSON.stringify(resp.data);
