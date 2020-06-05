@@ -71,15 +71,24 @@ const uuid = require('../utils/index');
       "uri": "/schedules?$take=999999&$skip=800"
       }
 
-      const response2 = await axios.post(`${config.baseUrl}/commands`, payload,headers);
+      axios.post(`${config.baseUrl}/commands`, payload,headers).then((resp) => {
 
-      const data = response2.data.resource.items.filter((e) => {
-        return e.status === 'scheduled'  
-        }).filter((d) => {
-        return d.message.to === identity
-        });
+        const data = resp.data.resource.items.filter((e) => {
 
-       res.status(200).send({tamanho: data.length});
+          return e.status === 'scheduled' 
+
+          }).filter((d) => {
+            
+          return d.message.to === identity
+          });
+  
+         res.status(200).send({tamanho: data.length});
+
+      }).catch((err) => {
+       res.status(err.response.status).json({error: err.response.statusText})
+     });
+
+      
 
 }
 
