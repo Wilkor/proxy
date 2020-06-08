@@ -18,6 +18,13 @@ artefatoImage = async (req, res) => {
     if (err.code !== 'EEXIST') throw err
   }
 
+  try {
+    fs.mkdirSync(path.join(__dirname, '../pdf/'))
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err
+  }
+
+
   console.log('payload', req.body);
 
   const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body;
@@ -233,9 +240,9 @@ artefatosHistory = async (req, res) => {
   
         table += `</div></body></html>`;
   
-        pdf.create(table, options).toFile(`save_file_path/history-${idProposta}.pdf`, function(err, result) {
+        pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${idProposta}.pdf`), function(err, result) {
           if (err) return console.log(err);
-          const base64History = fs.readFileSync(`./save_file_path/history-${idProposta}.pdf`).toString('base64')
+          const base64History = fs.readFileSync(path.resolve(`./pdf/history-${idProposta}.pdf`)).toString('base64')
 
       const headers2 = {
         headers: {
