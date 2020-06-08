@@ -5,7 +5,7 @@
 
 const {idsProposta, cpf, telefone} = req.body;
 
-const identification =  parseInt(cpf)
+const identification =  parseInt(cpf);
 
   const payload = {
         idsProposta: idsProposta,

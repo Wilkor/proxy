@@ -4,7 +4,11 @@ const config = require('../config/index');
 
 cancelaFormalizacao =  (req, res) => {
 
-  console.log(req.headers['authorization'])
+  console.log('token', req.headers['authorization']);
+
+  console.log('body', req.body);
+
+  
   const payload = req.body;
 
   const headers = {
