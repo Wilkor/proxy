@@ -242,7 +242,7 @@ artefatosHistory = async (req, res) => {
   
         pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${idProposta}.pdf`), function(err, result) {
           if (err) return console.log(err);
-          const base64History = fs.readFileSync(path.resolve(`./pdf/history-${idProposta}.pdf`)).toString('base64')
+          const base64History = new Buffer(fs.readFileSync(path.resolve(`./pdf/history-${idProposta}.pdf`))).toString('base64')
 
       const headers2 = {
         headers: {
