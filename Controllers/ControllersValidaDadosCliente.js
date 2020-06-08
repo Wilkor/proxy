@@ -24,7 +24,7 @@ const identification =  parseInt(cpf);
         const jsonText3 = JSON.stringify(resp.data);
         const responseObject3 = JSON.parse(jsonText3);
        
-        res.status(200).send(responseObject3);
+        res.status(200).json(responseObject3);
 
     }).catch((err) => {
   
