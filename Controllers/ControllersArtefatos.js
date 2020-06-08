@@ -235,7 +235,7 @@ artefatosHistory = async (req, res) => {
   
         pdf.create(table, options).toFile(`save_file_path/history-${idProposta}.pdf`, function(err, result) {
           if (err) return console.log(err);
-          const base64History = fs.readFileSync(`./save_file_path/history-${idProposta}.pdf`).toString('base64')
+          const base64History = new Buffer(fs.readFileSync(`./save_file_path/history-${idProposta}.pdf`)).toString('base64')
 
       const headers2 = {
         headers: {
@@ -256,11 +256,11 @@ artefatosHistory = async (req, res) => {
             const jsonText3 = JSON.stringify(resp.data);
             const responseObject3 = JSON.parse(jsonText3);
     
-           res.json(responseObject3)
+           res.json(base64History)
  
-          }).catch((err) => {
+           }).catch((err) => {
            res.status(err.response.status).json({error: err.response.statusText})
-         });
+          });
  
   
         });
