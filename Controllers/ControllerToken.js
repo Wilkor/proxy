@@ -7,7 +7,7 @@ token =  (req, res) => {
       
     const jsonText3 = JSON.stringify(resp.data);
     const responseObject3 = JSON.parse(jsonText3);
-    res.send(responseObject3)
+    res.json(responseObject3);
 
   }).catch((err) => {
   

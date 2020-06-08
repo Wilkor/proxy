@@ -46,7 +46,7 @@ const uuid = require('../utils/index');
         const jsonText3 = JSON.stringify(resp.data);
         const responseObject3 = JSON.parse(jsonText3);
           
-       res.status(200).send(responseObject3);
+       res.status(200).json(responseObject3);
 
       }).catch((err) => {
        res.status(err.response.status).json({error: err.response.statusText})

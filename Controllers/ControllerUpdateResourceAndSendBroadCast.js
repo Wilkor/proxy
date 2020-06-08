@@ -53,7 +53,7 @@
      const response2 = await axios.post(`${config.baseUrl}/commands`, payload2,headers);
      const jsonText2 = JSON.stringify (response2.data);
      const responseObject2 = JSON.parse (jsonText2);
-    // const response3 = await axios.post(`${config.baseUrl}/messages`, payload3,headers);
+     const response3 = await axios.post(`${config.baseUrl}/messages`, payload3,headers);
      
      res.status(200).json(responseObject2);
      
