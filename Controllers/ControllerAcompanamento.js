@@ -10,9 +10,14 @@ acompanhamento =  (req, res) => {
       }}
 
 
-    console.log('body', req.body)
+  const {idProposta, idTpRegistro, descricaoFase, status } = req.body;
 
-    const payload = req.body;
+    const payload = {
+          idProposta,
+          idTpRegistro,
+          descricaoFase: JSON.stringify(descricaoFase),
+          status
+         }
 
         try {
           
