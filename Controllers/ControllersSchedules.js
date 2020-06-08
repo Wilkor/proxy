@@ -54,7 +54,7 @@ const uuid = require('../utils/index');
     
     },
 
-  scheduledList = async (req,res) => {
+  scheduledList =  (req,res) => {
 
   const {accesskey, identity} = req.headers;
 
@@ -65,30 +65,26 @@ const uuid = require('../utils/index');
     }}
     
   const payload = {  
-      "id":uuid.uuid(),
-      "to": "postmaster@scheduler.msging.net",
-      "method": "get",
-      "uri": "/schedules?$take=999999&$skip=800"
+      'id':uuid.uuid(),
+      'to': 'postmaster@scheduler.msging.net',
+      'method': 'get',
+      'uri': '/schedules?$take=999999&$skip=800'
       }
 
       axios.post(`${config.baseUrl}/commands`, payload,headers).then((resp) => {
 
         const data = resp.data.resource.items.filter((e) => {
-
           return e.status === 'scheduled' 
 
-          }).filter((d) => {
-            
+          }).filter((d) => {  
           return d.message.to === identity
           });
   
-         res.status(200).send({tamanho: data.length});
+        res.status(resp.status).json({tamanho: data.length});
 
       }).catch((err) => {
        res.status(err.response.status).json({error: err.response.statusText})
      });
-
-      
 
 }
 
