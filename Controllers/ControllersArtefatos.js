@@ -17,35 +17,40 @@ artefatoImage = async (req, res) => {
   } catch (err) {
     if (err.code !== 'EEXIST') throw err
   }
-  const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body
 
-  request(uri).pipe(fs.createWriteStream(path.resolve('./download/'+ nomeArquivo))).on('close',  () => {
+  console.log('payload', req.body);
+
+  const {uri, idProposta, idArtefato, idCanal, nomeArquivo} = req.body;
+
+  res.send('ok');
+
+//   request(uri).pipe(fs.createWriteStream(path.resolve('./download/'+ nomeArquivo))).on('close',  () => {
     
- const headers = {
-    headers: {
-     'Content-Type': 'application/json',
-      'Authorization': req.headers['authorization']
-    }}
+//  const headers = {
+//     headers: {
+//      'Content-Type': 'application/json',
+//       'Authorization': req.headers['authorization']
+//     }}
 
-   const payload = {
-              "idProposta": idProposta,
-              "idArtefato": idArtefato,
-              "idCanal": idCanal,
-              "arquivo": new Buffer(fs.readFileSync(path.resolve('./download/'+ nomeArquivo))).toString('base64'),
-              "nomeArquivo": nomeArquivo
-   }
-      axios.post(config.urlArtefato, payload,headers).then((resp) => {
+//    const payload = {
+//               "idProposta": idProposta,
+//               "idArtefato": idArtefato,
+//               "idCanal": idCanal,
+//               "arquivo": new Buffer(fs.readFileSync(path.resolve('./download/'+ nomeArquivo))).toString('base64'),
+//               "nomeArquivo": nomeArquivo
+//    }
+//       axios.post(config.urlArtefato, payload,headers).then((resp) => {
 
-        const jsonText3 = JSON.stringify(resp.data);
-        const responseObject3 = JSON.parse(jsonText3);
-       res.send(responseObject3)
-      }).catch((err) => {
-       res.status(err.response.status).json({error: err.response.statusText})
-     });
+//         const jsonText3 = JSON.stringify(resp.data);
+//         const responseObject3 = JSON.parse(jsonText3);
+//        res.send(responseObject3)
+//       }).catch((err) => {
+//        res.status(err.response.status).json({error: err.response.statusText})
+//      });
 
    
 
-  });
+//   });
 
 
 },
