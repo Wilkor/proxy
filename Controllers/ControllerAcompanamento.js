@@ -10,33 +10,19 @@ acompanhamento =  (req, res) => {
       }}
 
 
-  const {idProposta, idTpRegistro, descricaoFase, status } = req.body;
-
-
-
-
-    const payload = {
-          idProposta,
-          idTpRegistro,
-          descricaoFase: JSON.stringify(descricaoFase),
-          status
-         }
-
-  
-         console.log(payload);
+    const payload = req.body;
           
-          // axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
+          axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
   
-          //    const jsonText3 = JSON.stringify(resp.data);
-          //    const responseObject3 = JSON.parse(jsonText3);
-          //    res.json(responseObject3);
+             const jsonText3 = JSON.stringify(resp.data);
+             const responseObject3 = JSON.parse(jsonText3);
+             res.json(responseObject3);
              
-          //  }).catch((err) => {
-          //   res.status(err.response.status).json({error: err.response.statusText})
-          // });
+           }).catch((err) => {
+            res.status(err.response.status).json({error: err.response.statusText})
+          });
    
-        res.send('ok')
-
+       
       }
   
 module.exports = {acompanhamento}
