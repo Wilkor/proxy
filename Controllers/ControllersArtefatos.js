@@ -5,7 +5,7 @@ const  pdf = require('html-pdf');
 const  moment = require('moment'); 
 const  fs = require("fs");
 const path = require("path")
-
+var Base64 = require('js-base64').Base64;
 const uuid = require('../utils/index');
 const config = require('../config/index');
 
@@ -62,121 +62,121 @@ artefatoImage = async (req, res) => {
 
 artefatosHistory = async (req, res) => {
 
-  let table='';
+//   let table='';
   
-  table += `<html> <style>
+//   table += `<html> <style>
 
-  .messages {
-    padding: 5% 0;
-    overflow: auto;
-    flex: auto;
-  }
+//   .messages {
+//     padding: 5% 0;
+//     overflow: auto;
+//     flex: auto;
+//   }
   
-  .messageBox {
-    background: #F3F3F3;
-    border-radius: 15px;
-    padding: 1px 20px;
-    color: white;
-    display: inline-block;
-    max-width: 80%;
-  }
+//   .messageBox {
+//     background: #F3F3F3;
+//     border-radius: 15px;
+//     padding: 1px 20px;
+//     color: white;
+//     display: inline-block;
+//     max-width: 80%;
+//   }
   
-  .messageText {
-    width: 100%;
-    letter-spacing: 0;
-    float: left;
-    font-size: 0.9em;
-    word-wrap: break-word;
-  }
+//   .messageText {
+//     width: 100%;
+//     letter-spacing: 0;
+//     float: left;
+//     font-size: 0.9em;
+//     word-wrap: break-word;
+//   }
   
-  .messageText img {
-    vertical-align: middle;
-  }
+//   .messageText img {
+//     vertical-align: middle;
+//   }
   
-  .messageContainer {
-    display: flex;
-    margin-left: 250px;
-    padding: 0 1%;
-    margin-top: 3px;
-  }
+//   .messageContainer {
+//     display: flex;
+//     margin-left: 250px;
+//     padding: 0 1%;
+//     margin-top: 3px;
+//   }
   
-  .sentText {
-    display: flex;
-    align-items: center;
-    font-family: Helvetica;
-    color: #828282;
-    letter-spacing: 0.3px;
+//   .sentText {
+//     display: flex;
+//     align-items: center;
+//     font-family: Helvetica;
+//     color: #828282;
+//     letter-spacing: 0.3px;
     
   
-  }
+//   }
   
-  .pl-10 {
-    padding-left: 10px;
-    width: 40em; word-wrap: break-word;
+//   .pl-10 {
+//     padding-left: 10px;
+//     width: 40em; word-wrap: break-word;
    
-  }
-  .pl-11 {
-    padding-left: 10px;
+//   }
+//   .pl-11 {
+//     padding-left: 10px;
   
     
-  }
+//   }
   
-  .pr-10 {
-    padding-right: 10px;
+//   .pr-10 {
+//     padding-right: 10px;
   
-  }
+//   }
   
-  .justifyStart {
-    justify-content: flex-start;
-  }
+//   .justifyStart {
+//     justify-content: flex-start;
+//   }
   
-  .justifyEnd {
-    margin-left: 900px;
-  }
+//   .justifyEnd {
+//     margin-left: 900px;
+//   }
   
-  .colorWhite {
-    color: white;
-  }
+//   .colorWhite {
+//     color: white;
+//   }
   
-  .colorDark {
-    color: #738192;
-  }
+//   .colorDark {
+//     color: #738192;
+//   }
   
-  .backgroundBlue {
-    background: #0cc8cc;
-  }
+//   .backgroundBlue {
+//     background: #0cc8cc;
+//   }
   
-  .backgroundLight {
-    background: #ebeef2;
-  }
-  .thread-header {
-    width:100%;
-    height:60px;
-    background-color: #363f4e;
-    border-radius: 5px;
-    margin-bottom: 30px;
+//   .backgroundLight {
+//     background: #ebeef2;
+//   }
+//   .thread-header {
+//     width:100%;
+//     height:60px;
+//     background-color: #363f4e;
+//     border-radius: 5px;
+//     margin-bottom: 30px;
 
-}
-.text-history {
+// }
+// .text-history {
 
-     font-family: Helvetica;
-     color: #ffffff;
-     margin-left:680px;
-     margin-top:100px;
-     font-size: 1.7em;
-}
-</style>
-  `;
+//      font-family: Helvetica;
+//      color: #ffffff;
+//      margin-left:680px;
+//      margin-top:100px;
+//      font-size: 1.7em;
+// }
+// </style>
+//   `;
   
   
-  var options = {
-    "format": "A4",
-    "orientation": "landscape",
-    "border": {
-      "top": "0.1in",
-  },
-  "timeout": "120000"
-  };
+//   var options = {
+//     "format": "A4",
+//     "orientation": "landscape",
+//     "border": {
+//       "top": "0.1in",
+//   },
+//   "timeout": "120000"
+//   };
   
       const {accesskey, identity} = req.headers;
       const {idProposta, idArtefato, idCanal, nomeArquivo} = req.body;
@@ -207,42 +207,42 @@ artefatosHistory = async (req, res) => {
             }
           }).filter(e => e != null).reverse()
         
-         table += `<body>
+        //  table += `<body>
          
-          <div class="thread-header" translate=""><br><span class="text-history"> Histórico de Conversa</span></div>
-          <div background:#f9fbfb>`;
+        //   <div class="thread-header" translate=""><br><span class="text-history"> Histórico de Conversa</span></div>
+        //   <div background:#f9fbfb>`;
 
-        conversaBot.filter((e) => {
+        // conversaBot.filter((e) => {
   
-          if(e.autor === 'bot'){
+        //   if(e.autor === 'bot'){
   
-            table += `
-            <div class="messageContainer justifyStart">
-            <div class="messageBox backgroundLight">
-              <p class="sentText pl-10  colorDark">${e.content}</p>
-            </div>
-            <p class="sentText pl-10 ">ChatBot - ${e.data} - ${e.hora}</p>
-            </div>
+        //     table += `
+        //     <div class="messageContainer justifyStart">
+        //     <div class="messageBox backgroundLight">
+        //       <p class="sentText pl-10  colorDark">${e.content}</p>
+        //     </div>
+        //     <p class="sentText pl-10 ">ChatBot - ${e.data} - ${e.hora}</p>
+        //     </div>
   
-            `
-          }else{
+        //     `
+        //   }else{
   
-            table += `
-            <div class="messageContainer justifyEnd">
-            <div class="messageBox backgroundBlue">
-              <p class="sentText pl-11  colorWhite">${e.content}</p>
-            </div>
-            <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
-            </div>
-            ` 
-          }
-        })
+        //     table += `
+        //     <div class="messageContainer justifyEnd">
+        //     <div class="messageBox backgroundBlue">
+        //       <p class="sentText pl-11  colorWhite">${e.content}</p>
+        //     </div>
+        //     <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
+        //     </div>
+        //     ` 
+        //   }
+        // })
   
-        table += `</div></body></html>`;
+        // table += `</div></body></html>`;
   
-        pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${idProposta}.pdf`), function(err, result) {
-          if (err) return console.log(err);
-          const base64History = new Buffer(fs.readFileSync(path.resolve(`./pdf/history-${idProposta}.pdf`))).toString('base64')
+        //pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${idProposta}.pdf`), function(err, result) {
+         // if (err) return console.log(err);
+          const base64History = Base64.encode(JSON.stringify(conversaBot))
 
       const headers2 = {
         headers: {
@@ -270,7 +270,7 @@ artefatosHistory = async (req, res) => {
           });
  
   
-        });
+      //  });
           
   }
 
