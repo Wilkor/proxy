@@ -12,6 +12,9 @@ acompanhamento =  (req, res) => {
 
   const {idProposta, idTpRegistro, descricaoFase, status } = req.body;
 
+
+
+
     const payload = {
           idProposta,
           idTpRegistro,
@@ -19,23 +22,20 @@ acompanhamento =  (req, res) => {
           status
          }
 
-        try {
-          
-          axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
   
-             const jsonText3 = JSON.stringify(resp.data);
-             const responseObject3 = JSON.parse(jsonText3);
-             res.json(responseObject3);
-             
-           }).catch((err) => {
-            res.status(err.response.status).json({error: err.response.statusText})
-          });
-        } catch (error) {
-
-          console.log(error)
+         console.log(payload);
           
-        }
-
+          // axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
+  
+          //    const jsonText3 = JSON.stringify(resp.data);
+          //    const responseObject3 = JSON.parse(jsonText3);
+          //    res.json(responseObject3);
+             
+          //  }).catch((err) => {
+          //   res.status(err.response.status).json({error: err.response.statusText})
+          // });
+   
+        res.send('ok')
 
       }
   
