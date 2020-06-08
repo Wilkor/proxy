@@ -11,6 +11,9 @@ acompanhamento =  (req, res) => {
 
 
     const payload = req.body;
+
+    console.log('Payload Acompanhamento', payload);
+
           
           axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
   
