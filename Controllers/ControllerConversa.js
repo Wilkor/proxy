@@ -12,14 +12,6 @@ const config = require('../config/index');
 
 artefatosHistory = async (req, res) => {
 
-  const {key, user, date} = req.query;
-
-  try {
-    fs.mkdirSync(path.join(__dirname, '../pdf/'))
-  } catch (err) {
-    if (err.code !== 'EEXIST') throw err
-  }
-
 
   let table='';
   
@@ -197,25 +189,25 @@ artefatosHistory = async (req, res) => {
   
         table += `</div></body></html>`;
   
-       pdf.create(table).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
+       //pdf.create(table, options).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
 
 
-        if (err) return console.log(err);
+        //if (err) return console.log(err);
          
-       });
+      // });
 
-    setTimeout(() => {
+   // setTimeout(() => {
 
-      let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
-      let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
-      res.setHeader('Content-Length', stat.size);
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
-      file.pipe(res);
+     // let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
+     // let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
+     // res.setHeader('Content-Length', stat.size);
+     // res.setHeader('Content-Type', 'application/pdf');
+      //res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
+     // file.pipe(res);
 
-    }, 5000)
+    //}, 5000)
 
-    
+    res.send(table);
           
   }
 
