@@ -12,6 +12,14 @@ const config = require('../config/index');
 
 artefatosHistory = async (req, res) => {
 
+  const {key, user, date} = req.query;
+
+  try {
+    fs.mkdirSync(path.join(__dirname, '../pdf/'))
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err
+  }
+
 
   let table='';
   
@@ -46,10 +54,9 @@ artefatosHistory = async (req, res) => {
   
   .messageContainer {
     display: flex;
-    margin-left: 0px;
+    margin-left: 250px;
     padding: 0 1%;
     margin-top: 3px;
-    max-width: 50%;
   }
   
   .sentText {
@@ -68,9 +75,8 @@ artefatosHistory = async (req, res) => {
    
   }
   .pl-11 {
+    padding-left: 10px;
   
-    padding-left: 680px;
-    width: 40em; word-wrap: break-word;
     
   }
   
@@ -84,7 +90,7 @@ artefatosHistory = async (req, res) => {
   }
   
   .justifyEnd {
-    justify-content: flex-end;
+    margin-left: 900px;
   }
   
   .colorWhite {
@@ -114,7 +120,8 @@ artefatosHistory = async (req, res) => {
 
      font-family: Helvetica;
      color: #ffffff;
-     margin-left:0px;
+     margin-left:680px;
+     margin-top:100px;
      font-size: 1.7em;
 }
 </style>
@@ -125,7 +132,7 @@ artefatosHistory = async (req, res) => {
     "format": "A4",
     "orientation": "landscape",
     "border": {
-      "top": "0",
+      "top": "0.1in",
   },
   "timeout": "120000"
   };
@@ -151,7 +158,7 @@ artefatosHistory = async (req, res) => {
         }).map((e) => {
             return {
               autor:e.autor,
-              content: typeof e.content === 'object' ? e.content['uri']: e.content,
+              content: typeof e.content == 'object' ? JSON.stringify(e.content): e.content,
               data: e.date.split('T')[0].split('-').reverse().join('/'),
               hora: e.date.split('T')[1].split('.')[0]
             }
@@ -162,7 +169,6 @@ artefatosHistory = async (req, res) => {
           <div class="thread-header" translate=""><br><span class="text-history"> Histórico de Conversa</span></div>
           <div background:#f9fbfb>`;
 
-        
         conversaBot.filter((e) => {
   
           if(e.autor === 'bot'){
@@ -170,10 +176,10 @@ artefatosHistory = async (req, res) => {
             table += `
             <div class="messageContainer justifyStart">
             <div class="messageBox backgroundLight">
-              <p class="sentText   colorDark">${e.content}</p>
-              </div><br>
-              </div>
-              <p class="sentText pl-10">ChatBot - ${e.data} - ${e.hora}</p>
+              <p class="sentText pl-10  colorDark">${e.content}</p>
+            </div>
+            <p class="sentText pl-10 ">ChatBot - ${e.data} - ${e.hora}</p>
+            </div>
   
             `
           }else{
@@ -181,35 +187,31 @@ artefatosHistory = async (req, res) => {
             table += `
             <div class="messageContainer justifyEnd">
             <div class="messageBox backgroundBlue">
-              <p class="sentText  colorWhite">${e.content}</p>
-              </div><br>
-              </div>
-              <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
+              <p class="sentText pl-11  colorWhite">${e.content}</p>
+            </div>
+            <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
+            </div>
             ` 
           }
         })
   
         table += `</div></body></html>`;
   
-       pdf.create(table, options).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
+       pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${req.query.date}.pdf`), function(err, result) {
 
 
         if (err) return console.log(err);
          
-      });
-
-
-
-     let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
-     let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
-     res.setHeader('Content-Length', stat.size);
-     res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
-     file.pipe(res);
-
- 
-
-   // res.send(table);
+         let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
+          let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
+          res.setHeader('Content-Length', stat.size);
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
+           table='';
+          file.pipe(res);
+      
+  
+     });
           
   }
 
