@@ -21,7 +21,7 @@ const ControllerAccount = require('./Controllers/ControllerAccount');
 const ControllerThreads = require('./Controllers/ControllerThreads');
 const ControllerGetPdf = require('./Controllers/ControllerGetPdf');
 const ControllerRemoveFile = require('./Controllers/ControllerRemoveFile');
-
+const ControllerConversa = require('./Controllers/ControllerConversa');
 const ControllerLogFile = require('./Controllers/ControllerLogFile');
 
 const routes = express.Router();
@@ -52,6 +52,7 @@ const routes = express.Router();
     routes.get('/removefile', ControllerRemoveFile.removeUploads);
     routes.get('/pdf', ControllerLogFile.logFilePdf);
     routes.get('/image', ControllerLogFile.logFileDownload);
+    routes.get('/conversa', ControllerConversa.artefatosHistory);
 
 
 module.exports = routes;
