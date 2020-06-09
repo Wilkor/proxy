@@ -8,7 +8,7 @@ const path = require("path")
 var Base64 = require('js-base64').Base64;
 const uuid = require('../utils/index');
 const config = require('../config/index');
-
+const  PDF = require('handlebars-pdf');
 
 artefatosHistory = async (req, res) => {
 
@@ -197,21 +197,41 @@ artefatosHistory = async (req, res) => {
   
         table += `</div></body></html>`;
   
-       pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${req.query.date}.pdf`), function(err, result) {
+    //    pdf.create(table, options).toFile(path.resolve('./pdf/'+`history-${req.query.date}.pdf`), function(err, result) {
 
 
-        if (err) return console.log(err);
+    //     if (err) return console.log(err);
          
-         let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
+
+  
+    //  });
+
+
+
+let document = {
+  template: table,
+  context: {
+      msg: 'Hello world'
+  },
+  path: "./pdf/history-"+req.query.date+".pdf"
+}
+
+PDF.create(document)
+.then(resp => {
+
+          let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
           let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
           res.setHeader('Content-Length', stat.size);
           res.setHeader('Content-Type', 'application/pdf');
           res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
-           table='';
+          
           file.pipe(res);
-      
-  
-     });
+
+})
+.catch(error => {
+  console.error(error)
+})
+
           
   }
 
