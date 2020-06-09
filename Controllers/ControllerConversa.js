@@ -49,6 +49,7 @@ artefatosHistory = async (req, res) => {
     margin-left: 0px;
     padding: 0 1%;
     margin-top: 3px;
+    max-width: 50%;
   }
   
   .sentText {
@@ -68,7 +69,8 @@ artefatosHistory = async (req, res) => {
   }
   .pl-11 {
   
-  
+    padding-left: 680px;
+    width: 40em; word-wrap: break-word;
     
   }
   
@@ -82,7 +84,7 @@ artefatosHistory = async (req, res) => {
   }
   
   .justifyEnd {
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
   
   .colorWhite {
@@ -168,10 +170,10 @@ artefatosHistory = async (req, res) => {
             table += `
             <div class="messageContainer justifyStart">
             <div class="messageBox backgroundLight">
-              <p class="sentText pl-10  colorDark">${e.content}</p>
-              <p class="sentText pl-10 ">${e.data} - ${e.hora}</p>
-            </div><br>
-            </div>
+              <p class="sentText   colorDark">${e.content}</p>
+              </div><br>
+              </div>
+              <p class="sentText pl-10">ChatBot - ${e.data} - ${e.hora}</p>
   
             `
           }else{
@@ -179,10 +181,10 @@ artefatosHistory = async (req, res) => {
             table += `
             <div class="messageContainer justifyEnd">
             <div class="messageBox backgroundBlue">
-              <p class="sentText pl-11  colorWhite">${e.content}</p>
-              <p class="sentText pl-11 ">${e.data} - ${e.hora}</p>
-            </div><br>
-            </div>
+              <p class="sentText  colorWhite">${e.content}</p>
+              </div><br>
+              </div>
+              <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
             ` 
           }
         })
@@ -196,7 +198,7 @@ artefatosHistory = async (req, res) => {
          
       });
 
-   setTimeout(() => {
+
 
      let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
      let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
@@ -205,9 +207,9 @@ artefatosHistory = async (req, res) => {
       res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
      file.pipe(res);
 
-    }, 5000)
+ 
 
-    //res.send(table);
+   // res.send(table);
           
   }
 
