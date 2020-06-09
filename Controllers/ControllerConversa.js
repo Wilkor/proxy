@@ -46,7 +46,7 @@ artefatosHistory = async (req, res) => {
   
   .messageContainer {
     display: flex;
-    margin-left: 250px;
+    margin-left: 0px;
     padding: 0 1%;
     margin-top: 3px;
   }
@@ -67,7 +67,7 @@ artefatosHistory = async (req, res) => {
    
   }
   .pl-11 {
-    padding-left: 10px;
+  
   
     
   }
@@ -82,7 +82,7 @@ artefatosHistory = async (req, res) => {
   }
   
   .justifyEnd {
-    margin-left: 900px;
+    justify-content: flex-start;
   }
   
   .colorWhite {
@@ -112,8 +112,7 @@ artefatosHistory = async (req, res) => {
 
      font-family: Helvetica;
      color: #ffffff;
-     margin-left:680px;
-     margin-top:100px;
+     margin-left:0px;
      font-size: 1.7em;
 }
 </style>
@@ -161,6 +160,7 @@ artefatosHistory = async (req, res) => {
           <div class="thread-header" translate=""><br><span class="text-history"> Histórico de Conversa</span></div>
           <div background:#f9fbfb>`;
 
+        
         conversaBot.filter((e) => {
   
           if(e.autor === 'bot'){
@@ -169,8 +169,8 @@ artefatosHistory = async (req, res) => {
             <div class="messageContainer justifyStart">
             <div class="messageBox backgroundLight">
               <p class="sentText pl-10  colorDark">${e.content}</p>
-            </div>
-            <p class="sentText pl-10 ">ChatBot - ${e.data} - ${e.hora}</p>
+              <p class="sentText pl-10 ">${e.data} - ${e.hora}</p>
+            </div><br>
             </div>
   
             `
@@ -180,8 +180,8 @@ artefatosHistory = async (req, res) => {
             <div class="messageContainer justifyEnd">
             <div class="messageBox backgroundBlue">
               <p class="sentText pl-11  colorWhite">${e.content}</p>
-            </div>
-            <p class="sentText pl-11 ">Cliente - ${e.data} - ${e.hora}</p>
+              <p class="sentText pl-11 ">${e.data} - ${e.hora}</p>
+            </div><br>
             </div>
             ` 
           }
@@ -189,25 +189,25 @@ artefatosHistory = async (req, res) => {
   
         table += `</div></body></html>`;
   
-       //pdf.create(table, options).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
+       pdf.create(table, options).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
 
 
-        //if (err) return console.log(err);
+        if (err) return console.log(err);
          
-      // });
+      });
 
-   // setTimeout(() => {
+   setTimeout(() => {
 
-     // let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
-     // let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
-     // res.setHeader('Content-Length', stat.size);
-     // res.setHeader('Content-Type', 'application/pdf');
-      //res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
-     // file.pipe(res);
+     let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
+     let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
+     res.setHeader('Content-Length', stat.size);
+     res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
+     file.pipe(res);
 
-    //}, 5000)
+    }, 5000)
 
-    res.send(table);
+    //res.send(table);
           
   }
 
