@@ -158,7 +158,7 @@ artefatosHistory = async (req, res) => {
         }).map((e) => {
             return {
               autor:e.autor,
-              content: typeof e.content == 'object' ? JSON.stringify(e.content): e.content,
+              content: typeof e.content === 'object' ? e.content['uri']: e.content,
               data: e.date.split('T')[0].split('-').reverse().join('/'),
               hora: e.date.split('T')[1].split('.')[0]
             }
@@ -197,7 +197,7 @@ artefatosHistory = async (req, res) => {
   
         table += `</div></body></html>`;
   
-       pdf.create(table, options).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
+       pdf.create(table).toFile('./pdf/'+`history-${req.query.date}.pdf`, (err, result) => {
 
 
         if (err) return console.log(err);
