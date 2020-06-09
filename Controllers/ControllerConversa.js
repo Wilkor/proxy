@@ -219,13 +219,15 @@ let document = {
 PDF.create(document)
 .then(resp => {
 
-          let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
-          let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
-          res.setHeader('Content-Length', stat.size);
-          res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
+         // let file = fs.createReadStream('./pdf/'+`history-${req.query.date}.pdf`);
+         // let stat = fs.statSync('./pdf/'+`history-${req.query.date}.pdf`);
+          //res.setHeader('Content-Length', stat.size);
+          //res.setHeader('Content-Type', 'application/pdf');
+         // res.setHeader('Content-Disposition', `attachment; filename=history-${req.query.date}.pdf`);
           
-          file.pipe(res);
+          //file.pipe(res);
+
+  res.send(resp);
 
 })
 .catch(error => {
