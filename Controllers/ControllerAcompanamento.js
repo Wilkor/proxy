@@ -3,7 +3,7 @@ const config = require('../config/index');
 
 acompanhamento =  (req, res) => {
 
-   console.log('acompanhamento', JSON.stringify(req));
+   console.log('acompanhamento', req);
 
     // const headers = {
     //   headers: {
