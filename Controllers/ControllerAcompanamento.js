@@ -5,29 +5,38 @@ acompanhamento =  (req, res) => {
 
    console.log('acompanhamento', req);
 
-    // const headers = {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': req.headers['authorization']
-    //   }}
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': req.headers['authorization']
+      }}
 
 
-    // const payload = req.body;
+    const payload = req.body;
 
-    // console.log('Payload Acompanhamento', payload);
-
-          
-    //       axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
+      try {
+        
+        axios.post(config.urlAcompanhamento, payload,headers).then((resp) => {
   
-    //          const jsonText3 = JSON.stringify(resp.data);
-    //          const responseObject3 = JSON.parse(jsonText3);
-    //          res.json(responseObject3);
-             
-    //        }).catch((err) => {
-    //         res.status(err.response.status).json({error: err.response.statusText})
-    //       });
+           const jsonText3 = JSON.stringify(resp.data);
+           const responseObject3 = JSON.parse(jsonText3);
+           res.json(responseObject3);
+           
+         }).catch((err) => {
+  
+          console.log(' then - catch', err.response.statusText);
+          
+          res.status(err.response.status).json({error: err.response.statusText})
+        });
+
+      } catch (error) {
+
+        console.log('catch', error)
+        
+      }
+
    
-      res.send('ok')
+   
       }
   
 module.exports = {acompanhamento}
