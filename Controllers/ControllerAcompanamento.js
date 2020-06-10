@@ -3,8 +3,7 @@ const config = require('../config/index');
 
 acompanhamento =  (req, res) => {
 
-   
-
+  
     const headers = {
       headers: {
         'Content-Type': 'application/json',
@@ -31,7 +30,7 @@ acompanhamento =  (req, res) => {
 
       } catch (error) {
 
-        console.log('catch', error)
+        console.log('catch error', error)
         
       }
 
