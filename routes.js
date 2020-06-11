@@ -55,7 +55,7 @@ const routes = express.Router();
     routes.get('/image', ControllerLogFile.logFileDownload);
     routes.get('/conversa', ControllerConversa.artefatosHistory);
     routes.get('/resource/:id', ControllerConsultaResource.getResource);
-
+    routes.get('/resource/:id/:template', ControllerConsultaResource.updateResource);
 module.exports = routes;
 
 
