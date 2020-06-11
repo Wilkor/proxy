@@ -20,7 +20,9 @@ getResource =  async (req, res) => {
     const response = await axios.post(`${config.baseUrl}/commands`, payload,headers);
     const jsonText = JSON.stringify (response.data);
     const responseObject = JSON.parse (jsonText);
-    res.status(200).json(responseObject);
+
+    const pre = `<pre>${responseObject}</pre>`
+    res.status(200).send(pre);
      
  }
 module.exports = {
