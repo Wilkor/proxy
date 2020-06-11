@@ -12,7 +12,7 @@ getResource =  async (req, res) => {
        }}
 
    const payload = {  
-    "id": "3cbdd83c-d7ad-4d1e-886a-a0dffb96fd37",
+    "id": uuid.uuid(),
     "method": "get",
     "uri": `/resources/${req.params.id}`
   }
