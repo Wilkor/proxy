@@ -12,6 +12,8 @@ const {idsProposta, cpf, telefone} = req.body;
         telefone: telefone
   }
 
+  console.log(payload);
+
   const headers = {
     headers: {
       'Content-Type': 'application/json',
