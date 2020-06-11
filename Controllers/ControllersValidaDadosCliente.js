@@ -8,7 +8,7 @@ const {idsProposta, cpf, telefone} = req.body;
 
   const payload = {
         idsProposta: idsProposta,
-        cpf:cpf,
+        cpf:cpf.replace(/\D/g, ''),
         telefone: telefone
   }
 
