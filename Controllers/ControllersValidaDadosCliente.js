@@ -36,28 +36,29 @@ const headersBlip = {
      axios.post(config.urlValidaDadosCliente, payload,headers).then( async (resp) => {
 
 
+       if (resp.data[0].flCpfValidado === true) {
 
-        const response = await axios.post(`${config.baseUrl}/commands`, payload2,headersBlip);
-              response.data.resource['Template'] = 'aguardandoTemplate';
+         const response = await axios.post(`${config.baseUrl}/commands`, payload2,headersBlip);
+               response.data.resource['Template'] = 'consultaCPF';
+  
+         const payload3 = {
+  
+           "id": uuid.uuid(),
+           "method": "set",
+           "uri":  `/resources/${telefone}_${cpf}`,
+              "type": "application/json",
+              "resource": response.data.resource
+       
+         }
+  
+         await axios.post(`${config.baseUrl}/commands`, payload3,headersBlip);
+       } 
 
-        const payload3 = {
-
-          "id": uuid.uuid(),
-          "method": "set",
-          "uri":  `/resources/${telefone}_${cpf}`,
-             "type": "application/json",
-             "resource": response.data.resource
-      
-        }
-
-        await axios.post(`${config.baseUrl}/commands`, payload3,headersBlip);
 
         const jsonText3 = JSON.stringify(resp.data);
         const responseObject3 = JSON.parse(jsonText3);
 
         res.status(200).json(responseObject3);
-
-       
 
     }).catch((err) => {
   
