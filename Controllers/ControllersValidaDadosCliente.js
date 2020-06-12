@@ -6,11 +6,11 @@
 const {idsProposta, cpf, telefone} = req.body;
 
 
-const headersBlip = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Key c2FmcmFwcm9kY29uc2lnYmlvd2E6T1Z1WU1zQlN6YjgyRTJIblJOYkE='
-  }}
+// const headersBlip = {
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': 'Key c2FmcmFwcm9kY29uc2lnYmlvd2E6T1Z1WU1zQlN6YjgyRTJIblJOYkE='
+//   }}
 
 
   const payload = {
@@ -25,34 +25,34 @@ const headersBlip = {
       'Authorization': req.headers['authorization']
     }}
 
-    const payload2 = { 
+    // const payload2 = { 
 
-      "id": uuid.uuid(),
-      "method": "get",
-      "uri": `/resources/${telefone}_${cpf}`
-     }
+    //   "id": uuid.uuid(),
+    //   "method": "get",
+    //   "uri": `/resources/${telefone}_${cpf}`
+    //  }
      
 
      axios.post(config.urlValidaDadosCliente, payload,headers).then( async (resp) => {
 
 
-       if (resp.data[0].flCpfValidado === true) {
+      //  if (resp.data[0].flCpfValidado === true) {
 
-         const response = await axios.post(`${config.baseUrl}/commands`, payload2,headersBlip);
-               response.data.resource['Template'] = 'consultaCPF';
+      //    const response = await axios.post(`${config.baseUrl}/commands`, payload2,headersBlip);
+      //          response.data.resource['Template'] = 'consultaCPF';
   
-         const payload3 = {
+      //    const payload3 = {
   
-           "id": uuid.uuid(),
-           "method": "set",
-           "uri":  `/resources/${telefone}_${cpf}`,
-              "type": "application/json",
-              "resource": response.data.resource
+      //      "id": uuid.uuid(),
+      //      "method": "set",
+      //      "uri":  `/resources/${telefone}_${cpf}`,
+      //         "type": "application/json",
+      //         "resource": response.data.resource
        
-         }
+      //    }
   
-         await axios.post(`${config.baseUrl}/commands`, payload3,headersBlip);
-       } 
+      //    await axios.post(`${config.baseUrl}/commands`, payload3,headersBlip);
+      //  } 
 
 
         const jsonText3 = JSON.stringify(resp.data);
