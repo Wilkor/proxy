@@ -1,9 +1,16 @@
  const axios = require('axios');
  const config = require('../config/index');
-
-  validaDadosCliente =  (req, res) => {
+ const uuid = require('../utils/index');
+  validaDadosCliente =  async (req, res) => {
 
 const {idsProposta, cpf, telefone} = req.body;
+
+
+const headersBlip = {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Key c2FmcmFwcm9kY29uc2lnYmlvd2E6T1Z1WU1zQlN6YjgyRTJIblJOYkE='
+  }}
 
 
   const payload = {
@@ -12,20 +19,45 @@ const {idsProposta, cpf, telefone} = req.body;
         telefone: telefone
   }
 
-  console.log(payload);
-
   const headers = {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': req.headers['authorization']
     }}
 
-     axios.post(config.urlValidaDadosCliente, payload,headers).then((resp) => {
+    const payload2 = { 
+
+      "id": uuid.uuid(),
+      "method": "get",
+      "uri": `/resources/${telefone}_${cpf}`
+     }
+     
+
+     axios.post(config.urlValidaDadosCliente, payload,headers).then( async (resp) => {
+
+
+
+        const response = await axios.post(`${config.baseUrl}/commands`, payload2,headersBlip);
+              response.data.resource['Template'] = 'aguardandoTemplate';
+
+        const payload3 = {
+
+          "id": uuid.uuid(),
+          "method": "set",
+          "uri":  `/resources/${telefone}_${cpf}`,
+             "type": "application/json",
+             "resource": response.data.resource
+      
+        }
+
+        await axios.post(`${config.baseUrl}/commands`, payload3,headersBlip);
 
         const jsonText3 = JSON.stringify(resp.data);
         const responseObject3 = JSON.parse(jsonText3);
-       
+
         res.status(200).json(responseObject3);
+
+       
 
     }).catch((err) => {
   
