@@ -7,6 +7,8 @@ const axios = require('axios');
 const route = require('./routes');
 const bodyParser = require('body-parser');
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors());
 app.use(express.json());
