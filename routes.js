@@ -32,8 +32,8 @@ const routes = express.Router();
     routes.post('/Novo', ControllerNovo.propostaNova);
     routes.post('/Refin', ControllerRefin.propostaRefin);
     
-    routes.get('DataprevBeneficios/:cpf', ControllerGetBeneficios.getBeneficios);
-    routes.post('DataprevBeneficios', ControllerPostBeneficios.postBeneficios);
+    routes.get('/DataprevBeneficios/:cpf', ControllerGetBeneficios.getBeneficios);
+    routes.post('/DataprevBeneficios', ControllerPostBeneficios.postBeneficios);
     
     routes.get('/Contratos/:cpf', ControllerContratos.getContratos);
     routes.get('/Contratos/:cpf/:idConvenio/Refin', ControllerContratosRefin.getContratosRefin);
