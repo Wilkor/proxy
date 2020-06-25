@@ -11,8 +11,8 @@ token =  (req, res) => {
     res.json(responseObject);
 
   }).catch((err) => {
-   console.log(err)
-   //res.status(err.response.status).json({error: err.response.statusText})
+
+   res.status(err.response.status).json({error: err.response.statusText})
  });
 
 }
