@@ -3,7 +3,14 @@ const config = require('../../config/index');
 
 getBeneficios =  (req, res) => {
   
-    axios.get(`${config.contratacao.baseUrl}/api/v1/DataprevBeneficios/${req.params.cpf}`).then((resp) => {
+
+  const headers = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': req.headers['authorization']
+    }}
+
+    axios.get(`${config.contratacao.baseUrl}/api/v1/DataprevBeneficios/${req.params.cpf}`, headers).then((resp) => {
       
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

@@ -2,8 +2,15 @@ const axios = require('axios');
 const config = require('../../config/index');
 
 blackList =  (req, res) => {
+
+  const headers = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': req.headers['authorization']
+    }}
+
   
-    axios.get(`${config.contratacao.baseUrl}/api/v1/Blacklist/telefone/${req.params.ddd}/${req.params.telefone}`).then((resp) => {
+    axios.get(`${config.contratacao.baseUrl}/api/v1/Blacklist/telefone/${req.params.ddd}/${req.params.telefone}`, headers).then((resp) => {
       
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);
