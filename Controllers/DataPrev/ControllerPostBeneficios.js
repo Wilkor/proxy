@@ -22,7 +22,7 @@ postBeneficios =  (req, res) => {
 
   }).catch((err) => {
 
-   res.status(err.response.status).json({error: err.response})
+     res.status(err.response.status).json({error: err.response.data})
  });
 
 }
