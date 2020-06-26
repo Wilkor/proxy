@@ -10,6 +10,10 @@ postBeneficios =  (req, res) => {
     }}
 
   
+    console.log('headers ', headers)
+    console.log('body ', req.body)
+
+    
     axios.post(`${config.contratacao.baseUrl}/api/v1/DataprevBeneficios`, req.body, headers).then((resp) => {
       
     const jsonText = JSON.stringify(resp.data);
