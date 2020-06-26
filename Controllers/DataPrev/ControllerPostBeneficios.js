@@ -13,7 +13,7 @@ postBeneficios =  (req, res) => {
     console.log('headers ', headers)
     console.log('body ', req.body)
 
-    
+
     axios.post(`${config.contratacao.baseUrl}/api/v1/DataprevBeneficios`, req.body, headers).then((resp) => {
       
     const jsonText = JSON.stringify(resp.data);
@@ -21,8 +21,8 @@ postBeneficios =  (req, res) => {
     res.json(responseObject);
 
   }).catch((err) => {
-  
-   res.status(err.response.status).json({error: err.response.statusText})
+
+   res.status(err.response.status).json({error: err.response})
  });
 
 }
