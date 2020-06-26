@@ -17,7 +17,7 @@ calculoNovo =  (req, res) => {
 
   }).catch((err) => {
   
-   res.status(err.response.status).json({error: err.response.statusText})
+   res.status(err.response.status).json({error: err.response.data})
  });
 
 }
