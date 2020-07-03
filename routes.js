@@ -21,6 +21,9 @@ const ControllerContratosRefin = require('./Controllers/Contratos/ControllerCont
 const ControllerNovoCalculo = require('./Controllers/Caculo/ControllerNovo');
 const ControllerRefinCalculo = require('./Controllers/Caculo/ControllerRefin');
 
+const deletSchedule = require('./Controllers/Delete/ControllerDelete');
+const ControllerConsultaResource = require('./Controllers/Resources/ControllerConsultaResource');
+
 const routes = express.Router();
 
     routes.get('/', (req, res) => {
@@ -45,7 +48,11 @@ const routes = express.Router();
     routes.get('/VinculoEmpregaticio/:idConvenio', ControllerVinculoEmpregaticio.vinculoEmpregaticio);
     routes.get('/Blacklist/telefone/:ddd/:telefone', ControllerBlackList.blackList)
 
-  
+    ///itens a mais
+
+    routes.get('/delete', deletSchedule.scheduled)
+    routes.get('/resource/:id', ControllerConsultaResource.getResource);
+
 module.exports = routes;
 
 

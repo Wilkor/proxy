@@ -6,7 +6,7 @@ const uuid = require('../utils/index');
 
 
   const {accesskey} = req.headers;
-  const {contactIdentity} = req.body
+  //const {contactIdentity} = req.body
 
   const headers = {
       headers: {
@@ -25,9 +25,10 @@ const uuid = require('../utils/index');
 
       const data = response2.data.resource.items.filter((e) => {
           return e.status === 'scheduled'  
-      }).filter((d) => {
-      return d.message.to === contactIdentity
-      });
+      })
+      //.filter((d) => {
+     // return d.message.to === contactIdentity
+      //});
 
       data.forEach(async (element) => {
         const payload2 = {  
