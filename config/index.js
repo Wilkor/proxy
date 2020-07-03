@@ -13,7 +13,7 @@ module.exports = {
     urlReabirFormalizacao: 'https://api-h.safrafinanceira.com.br/apl-api-formalizacao-consignado/api/v1/ReabrirFormalizacao'
   },
   contratacao:{
-    baseUrl:'https://api-h.safrafinanceira.com.br/apl-api-cht-consig',
+    baseUrl:'https://api-h.safrafinanceira.com.br/apl-api-vpc-consig',
     uploads:'./download',
     pdf:'./save_file_path'
 
