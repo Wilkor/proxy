@@ -17,13 +17,18 @@ getResource =  async (req, res) => {
     "uri": `/resources/${req.params.id}`
   }
   
-    const response = await axios.post(`${config.baseUrl}/commands`, payload,headers);
+    const response = await axios.post(`${config.formalizacao.baseUrl}/commands`, payload,headers);
     const jsonText = JSON.stringify (response.data);
     const responseObject = JSON.parse (jsonText);
 
 
+    
+
+    if(response.data.reason){
+
+      res.status(404).send({msg:'recurso não encontrado'});
+    }
     res.status(200).send(responseObject.resource);
-     
  },
 
  updateResource = async (req, res) => {
@@ -40,7 +45,7 @@ const payload = {
  "uri": `/resources/${req.params.id}`
 }
 
- const response = await axios.post(`${config.baseUrl}/commands`, payload,headers);
+ const response = await axios.post(`${config.formalizacao.baseUrl}/commands`, payload,headers);
 
 
       response.data.resource['Template'] = req.params.template;
@@ -56,8 +61,8 @@ const payload = {
 
   }
 
-       const response2 = await axios.post(`${config.baseUrl}/commands`, payload2,headers);
-       const response3 = await axios.post(`${config.baseUrl}/commands`, payload,headers);
+       const response2 = await axios.post(`${config.formalizacao.baseUrl}/commands`, payload2,headers);
+       const response3 = await axios.post(`${config.formalizacao.baseUrl}/commands`, payload,headers);
 
        
        const jsonText = JSON.stringify (response3.data);
