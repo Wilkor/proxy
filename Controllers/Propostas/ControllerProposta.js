@@ -18,8 +18,8 @@ getProposta =  (req, res) => {
     res.json(responseObject);
 
   }).catch((err) => {
-  
-   res.status(err.response.status).json({error: err.response.data})
+   console.log(err)
+   //res.status(err.response.status).json({error: err.response.data})
  });
 
 }
