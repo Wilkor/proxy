@@ -11,6 +11,7 @@ const ControllerBlackList = require('./Controllers/BlackList/ControllerTelefone'
 
 const ControllerNovo = require('./Controllers/Propostas/ControllerNovo');
 const ControllerRefin = require('./Controllers/Propostas/ControllerRefin');
+const ControllerProposta = require('./Controllers/Propostas/ControllerProposta');
 
 const ControllerGetBeneficios = require('./Controllers/DataPrev/ControllerGetBeneficios');
 const ControllerPostBeneficios = require('./Controllers/DataPrev/ControllerPostBeneficios');
@@ -34,7 +35,8 @@ const routes = express.Router();
     
     routes.post('/Novo', ControllerNovo.propostaNova);
     routes.post('/Refin', ControllerRefin.propostaRefin);
-    
+    routes.get('/proposta/:id', ControllerProposta.getProposta);
+
     routes.get('/DataprevBeneficios/:cpf', ControllerGetBeneficios.getBeneficios);
     routes.post('/DataprevBeneficios', ControllerPostBeneficios.postBeneficios);
     
@@ -46,11 +48,11 @@ const routes = express.Router();
     
     routes.post('/Token', ControllerToken.token);
     routes.get('/VinculoEmpregaticio/:idConvenio', ControllerVinculoEmpregaticio.vinculoEmpregaticio);
-    routes.get('/Blacklist/telefone/:ddd/:telefone', ControllerBlackList.blackList)
+    routes.get('/Blacklist/telefone/:ddd/:telefone', ControllerBlackList.blackList);
 
     ///itens a mais
 
-    routes.get('/delete', deletSchedule.scheduled)
+    routes.get('/delete', deletSchedule.scheduled);
     routes.get('/resource/:id', ControllerConsultaResource.getResource);
 
 module.exports = routes;
