@@ -35,13 +35,8 @@ const routes = express.Router();
     
     routes.post('/Novo', ControllerNovo.propostaNova);
     routes.post('/Refin', ControllerRefin.propostaRefin);
-<<<<<<< HEAD
     routes.get('/proposta/:id', ControllerProposta.getProposta )
     
-=======
-    routes.get('/proposta/:id', ControllerProposta.getProposta);
-
->>>>>>> f6ec56cd1bf4980427f7ce003b5b546eeb07e4b4
     routes.get('/DataprevBeneficios/:cpf', ControllerGetBeneficios.getBeneficios);
     routes.post('/DataprevBeneficios', ControllerPostBeneficios.postBeneficios);
     
