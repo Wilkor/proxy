@@ -35,7 +35,7 @@ const routes = express.Router();
     
     routes.post('/Novo', ControllerNovo.propostaNova);
     routes.post('/Refin', ControllerRefin.propostaRefin);
-    routes.get('/proposta/:id', ControllerProposta.getProposta )
+    routes.get('/propostas/:id', ControllerProposta.getProposta )
     
     routes.get('/DataprevBeneficios/:cpf', ControllerGetBeneficios.getBeneficios);
     routes.post('/DataprevBeneficios', ControllerPostBeneficios.postBeneficios);
