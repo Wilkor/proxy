@@ -28,6 +28,7 @@ const ControllerConsultaResource = require('./Controllers/Resources/ControllerCo
 /* Crivo */
 const ControllerTokenCrivo = require('./ControllersCrivo/Token/ControllerTokenCrivo');
 const ControllerCrivo = require('./ControllersCrivo/CrivoContratacaoWhatsApp/ControllerCrivo');
+const ControllerCrivoReduced = require('./ControllersCrivo/CrivoContratacaoWhatsApp/ControllerCrivoReduced');
 const { Router } = require('express');
 
 /* Crivo - Fim */
@@ -64,6 +65,7 @@ routes.get('/Blacklist/telefone/:ddd/:telefone', ControllerBlackList.blackList);
 
 routes.post('/CrivoToken', ControllerTokenCrivo.token);
 routes.post('/CrivoContratacaoWhatsApp', ControllerCrivo.crivo);
+routes.post('/CrivoContratacaoWhatsAppReduced', ControllerCrivoReduced.crivo);
 
 /* Crivo Fim */
 ///itens a mais
