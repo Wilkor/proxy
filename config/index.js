@@ -16,7 +16,9 @@ module.exports = {
     baseUrl:'https://api-h.safrafinanceira.com.br/apl-api-cht-consig',
     uploads:'./download',
     pdf:'./save_file_path'
-
+  },
+  crivo: {
+    baseUrl: 'https://api-h.safrafinanceira.com.br/apl-api-crivo-aqx'
   }
 
 }
