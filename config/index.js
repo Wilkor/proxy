@@ -15,7 +15,8 @@ module.exports = {
   contratacao:{
     baseUrl:'https://api-h.safrafinanceira.com.br/apl-api-cht-consig',
     uploads:'./download',
-    pdf:'./save_file_path'
+    pdf:'./save_file_path',
+    vpc: 'https://api-h.safrafinanceira.com.br/apl-api-vpc-consig'
   },
   crivo: {
     baseUrl: 'https://api-h.safrafinanceira.com.br/apl-api-crivo-aqx'

@@ -25,6 +25,10 @@ const ControllerRefinCalculo = require('./Controllers/Caculo/ControllerRefin');
 const deletSchedule = require('./Controllers/Delete/ControllerDelete');
 const ControllerConsultaResource = require('./Controllers/Resources/ControllerConsultaResource');
 
+const ControllerTokenAndListOfBank = require('./Controllers/Banco/ControllerBanco');
+
+
+
 /* Crivo */
 const ControllerTokenCrivo = require('./ControllersCrivo/Token/ControllerTokenCrivo');
 const ControllerCrivo = require('./ControllersCrivo/CrivoContratacaoWhatsApp/ControllerCrivo');
@@ -46,23 +50,21 @@ routes.get('/DataprevBeneficios/:cpf', ControllerGetBeneficios.getBeneficios);
 routes.post('/DataprevBeneficios', ControllerPostBeneficios.postBeneficios);
 
 routes.get('/Contratos/:cpf', ControllerContratos.getContratos);
-routes.get(
-    '/Contratos/:cpf/:idConvenio/Refin',
-    ControllerContratosRefin.getContratosRefin
+routes.get('/Contratos/:cpf/:idConvenio/Refin',  ControllerContratosRefin.getContratosRefin
 );
 
 routes.post('/Calculo/Novo', ControllerNovoCalculo.calculoNovo);
 routes.post('/Calculo/Refin', ControllerRefinCalculo.calculoRefin);
 
 routes.post('/Token', ControllerToken.token);
-routes.get(
-    '/VinculoEmpregaticio/:idConvenio',
-    ControllerVinculoEmpregaticio.vinculoEmpregaticio
+routes.get('/VinculoEmpregaticio/:idConvenio', ControllerVinculoEmpregaticio.vinculoEmpregaticio
 );
 routes.get('/Blacklist/telefone/:ddd/:telefone', ControllerBlackList.blackList);
 
-/* Crivo */
+routes.post('/api/v1/Bancos', ControllerTokenAndListOfBank.getBank );
 
+
+/* Crivo */
 routes.post('/CrivoToken', ControllerTokenCrivo.token);
 routes.post('/CrivoContratacaoWhatsApp', ControllerCrivo.crivo);
 routes.post('/CrivoContratacaoWhatsAppReduced', ControllerCrivoReduced.crivo);
