@@ -65,9 +65,11 @@ routes.post('/api/v1/Bancos', ControllerTokenAndListOfBank.getBank );
 
 
 /* Crivo */
+routes.post('/Crivo/Token', ControllerTokenCrivo.token);
+routes.post('/Crivo/CrivoContratacaoWhatsApp', ControllerCrivo.crivo);
+
 routes.post('/CrivoToken', ControllerTokenCrivo.token);
 routes.post('/CrivoContratacaoWhatsApp', ControllerCrivo.crivo);
-routes.post('/CrivoContratacaoWhatsAppReduced', ControllerCrivoReduced.crivo);
 
 /* Crivo Fim */
 ///itens a mais
