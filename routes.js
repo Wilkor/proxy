@@ -28,6 +28,9 @@ const ControllerConsultaResource = require('./Controllers/Resources/ControllerCo
 const ControllerTokenAndListOfBank = require('./Controllers/Banco/ControllerBanco');
 
 
+/* Port < 13 */
+
+const ControllerLoteSimulacao = require('./Controllers/LoteSimulacao/ControllerLoteSimulacao');
 
 /* Crivo */
 const ControllerTokenCrivo = require('./ControllersCrivo/Token/ControllerTokenCrivo');
@@ -61,8 +64,11 @@ routes.get('/VinculoEmpregaticio/:idConvenio', ControllerVinculoEmpregaticio.vin
 );
 routes.get('/Blacklist/telefone/:ddd/:telefone', ControllerBlackList.blackList);
 
-routes.post('/api/v1/Bancos', ControllerTokenAndListOfBank.getBank );
+routes.post('/api/v1/Bancos', ControllerTokenAndListOfBank.getBank);
 
+/* Port < 13 */
+
+routes.get('/LoteSimulacao/:telefone', ControllerLoteSimulacao.loteSimulacao);
 
 /* Crivo */
 routes.post('/Crivo/Token', ControllerTokenCrivo.token);
