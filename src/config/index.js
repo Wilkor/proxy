@@ -20,6 +20,9 @@ module.exports = {
   },
   crivo: {
     baseUrl: 'https://api-h.safrafinanceira.com.br/apl-api-crivo-aqx'
+  },
+  financeira:{
+    baseUrl: 'https://api-h.safrafinanceira.com.br/apl-api-ura-aqx'
   }
 
 }
