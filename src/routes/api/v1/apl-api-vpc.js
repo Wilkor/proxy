@@ -19,6 +19,7 @@ const ControllerContratosRefin = require('../../../Controllers/Contratos/Control
 const ControllerNovoCalculo = require('../../../Controllers/Caculo/ControllerNovo');
 const ControllerRefinCalculo = require('../../../Controllers/Caculo/ControllerRefin');
 const ControllerTokenAndListOfBank = require('../../../Controllers/Banco/ControllerBanco');
+const ControllerLoteSimulacao = require('../../../Controllers/LoteSimulacao/ControllerLoteSimulacao');
 
 
 
@@ -54,5 +55,7 @@ routes
 
 routes
 .post('/api/v1/Bancos', ControllerTokenAndListOfBank.getBank );
+
+routes.get('/LoteSimulacao/:telefone', ControllerLoteSimulacao.loteSimulacao);
 
 module.exports = routes;
