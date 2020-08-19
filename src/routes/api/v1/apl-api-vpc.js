@@ -24,9 +24,9 @@ const ControllerLoteSimulacao = require('../../../Controllers/LoteSimulacao/Cont
 
 
 routes
-.post('/Novo', ControllerNovo.propostaNova);
+.post('/Propostas/Novo', ControllerNovo.propostaNova);
 routes
-.post('/Refin', ControllerRefin.propostaRefin);
+.post('/Propostas/Refin', ControllerRefin.propostaRefin);
 routes
 .get('/propostas/:id', ControllerProposta.getProposta);
 
