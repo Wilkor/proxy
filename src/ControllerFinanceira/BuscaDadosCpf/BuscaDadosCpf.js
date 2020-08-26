@@ -10,7 +10,7 @@ BuscaDadosCpf =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/epf/BuscaDadosCpf/${idCliente}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/epf/BuscaDadosCpf/${req.params.idCliente}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

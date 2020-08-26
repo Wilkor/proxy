@@ -10,7 +10,7 @@ ScdConsultaAni =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/scd/ConsultaAni/${numTelefone}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/scd/ConsultaAni/${req.params.numTelefone}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

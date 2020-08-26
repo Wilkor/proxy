@@ -10,7 +10,7 @@ StatusContrato =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/epf/StatusContrato/${idCliente}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/epf/StatusContrato/${req.params.idCliente}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

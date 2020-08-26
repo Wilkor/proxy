@@ -10,7 +10,7 @@ ScdContratosDocumentoEidContrato =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/scd/Contratos/${cpfCnpj}/${idContrato}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/scd/Contratos/${req.params.cpfCnpj}/${req.params.idContrato}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

@@ -10,7 +10,7 @@ CelularCliente =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/scd/CelularCliente/${idContrato}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/scd/CelularCliente/${req.params.idContrato}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

@@ -10,7 +10,7 @@ ReembolsoCobranca =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/epf/ReembolsoCobranca/${idContrato}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/epf/ReembolsoCobranca/${req.params.idContrato}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);

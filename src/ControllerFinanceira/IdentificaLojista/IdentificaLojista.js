@@ -10,7 +10,7 @@ IdentificaLojista =  (req, res) => {
     }}
   
     axios.
-    get(`${config.financeira.baseUrl}/api/v1/scd/IdentificaLojista/${cpfCnpj}`, headers)
+    get(`${config.financeira.baseUrl}/api/v1/scd/IdentificaLojista/${req.params.cpfCnpj}`, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);
