@@ -20,8 +20,9 @@ const ControllerNovoCalculo = require('../../../Controllers/Caculo/ControllerNov
 const ControllerRefinCalculo = require('../../../Controllers/Caculo/ControllerRefin');
 const ControllerTokenAndListOfBank = require('../../../Controllers/Banco/ControllerBanco');
 const ControllerLoteSimulacao = require('../../../Controllers/LoteSimulacao/ControllerLoteSimulacao');
+const ControllerLead = require('../../../Controllers/Lead/ControllerLead');
 
-
+routes.put('/Lead', ControllerLead.sendLead)
 
 routes
 .post('/Propostas/Novo', ControllerNovo.propostaNova);
