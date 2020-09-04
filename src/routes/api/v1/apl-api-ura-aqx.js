@@ -46,6 +46,9 @@ routes
  .get('/api/v1/scd/Contratos/:cpfCnpj', 
  Contratos.ScdContratosDocumento.ScdContratosDocumento);
  routes
+ .get('/api/v1/scd/Contratos/GetContratos/:cpfCnpj', 
+ Contratos.ScdContratosDocumentoCompleto.ScdContratosDocumentoCompleto);
+ routes
  .get('/api/v1/scd/Contratos/:cpfCnpj/:idContrato', 
  Contratos.ScdContratosDocumentoEidContrato.ScdContratosDocumentoEidContrato);
  routes
