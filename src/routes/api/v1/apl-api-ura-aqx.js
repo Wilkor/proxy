@@ -16,6 +16,8 @@ const LinhaDigitavel = require('../../../ControllerFinanceira/LinhaDigitavel/Lin
 const LinhaDigitavelEmail = require('../../../ControllerFinanceira/LinhaDigitavel/LinhaPorEmail');
 const ReembolsoCobranca = require('../../../ControllerFinanceira/ReembolsoCobranca/ReembolsoCobranca');
 const SaldoDevedorDia = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDia');
+const SaldoDevedorDiaV2 = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDiaV2');
+
 const StatusContrato = require('../../../ControllerFinanceira/StatusContrato/StatusContrato');
 const StatusProposta = require('../../../ControllerFinanceira/StatusProposta/StatusProposta');
 const Token = require('../../../ControllerFinanceira/Token/Token');
@@ -72,6 +74,8 @@ routes
  .get('/api/v1/epf/ReembolsoCobranca/:idContrato', ReembolsoCobranca.ReembolsoCobranca);
  routes
  .post('/api/v1/scd/SaldoDevedorDia', SaldoDevedorDia.SaldoDevedorDia);
+ routes
+ .post('/api/v2/scd/SaldoDevedorDia', SaldoDevedorDiaV2.SaldoDevedorDia);
  routes
  .get('/api/v1/epf/StatusContrato/:idCliente', StatusContrato.StatusContrato);
  routes

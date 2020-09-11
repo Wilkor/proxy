@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('../../config/index');
 
-SaldoDevedorDiaV2 =  (req, res) => {
+SaldoDevedorDia =  (req, res) => {
 
   const headers = {
     headers: {
@@ -10,7 +10,7 @@ SaldoDevedorDiaV2 =  (req, res) => {
     }}
   
     axios.
-    post(`${config.financeira.baseUrl}/api/v1/scd/SaldoDevedorDia`, req.body, headers)
+    post(`${config.financeira.baseUrl}/api/v2/scd/SaldoDevedorDia`, req.body, headers)
     .then((resp) => {
     const jsonText = JSON.stringify(resp.data);
     const responseObject = JSON.parse(jsonText);
@@ -23,5 +23,5 @@ SaldoDevedorDiaV2 =  (req, res) => {
 
 }
 module.exports = {
-  SaldoDevedorDiaV2
+  SaldoDevedorDia
 }
