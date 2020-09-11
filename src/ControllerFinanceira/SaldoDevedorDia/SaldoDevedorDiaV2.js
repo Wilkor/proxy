@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('../../config/index');
 
-SaldoDevedorDia =  (req, res) => {
+SaldoDevedorDiaV2 =  (req, res) => {
 
   const headers = {
     headers: {
@@ -23,5 +23,5 @@ SaldoDevedorDia =  (req, res) => {
 
 }
 module.exports = {
-  SaldoDevedorDia
+  SaldoDevedorDiaV2
 }

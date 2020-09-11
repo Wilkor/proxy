@@ -75,7 +75,7 @@ routes
  routes
  .post('/api/v1/scd/SaldoDevedorDia', SaldoDevedorDia.SaldoDevedorDia);
  routes
- .post('/api/v2/scd/SaldoDevedorDia', SaldoDevedorDiaV2.SaldoDevedorDia);
+ .post('/api/v2/scd/SaldoDevedorDia', SaldoDevedorDiaV2.SaldoDevedorDiaV2);
  routes
  .get('/api/v1/epf/StatusContrato/:idCliente', StatusContrato.StatusContrato);
  routes
