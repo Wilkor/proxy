@@ -13,6 +13,7 @@ const EnvioSMS = require('../../../ControllerFinanceira/EnvioSMS/EnvioSms');
 const Gravames = require('../../../ControllerFinanceira/Gravames/Gravames');
 const IdentificaLojista = require('../../../ControllerFinanceira/IdentificaLojista/IdentificaLojista');
 const LinhaDigitavel = require('../../../ControllerFinanceira/LinhaDigitavel/LinhaDigitavel');
+const LinhaDigitavelEmail = require('../../../ControllerFinanceira/LinhaDigitavel/LinhaPorEmail');
 const ReembolsoCobranca = require('../../../ControllerFinanceira/ReembolsoCobranca/ReembolsoCobranca');
 const SaldoDevedorDia = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDia');
 const StatusContrato = require('../../../ControllerFinanceira/StatusContrato/StatusContrato');
@@ -65,6 +66,8 @@ routes
  .get('/api/v1/scd/IdentificaLojista/:cpfCnpj', IdentificaLojista.IdentificaLojista);
  routes
  .post('/api/v1/scd/LinhaDigitavel', LinhaDigitavel.LinhaDigitavel);
+ routes
+ .post('/api/v1/scd/LinhaDigitavel/Email', LinhaDigitavelEmail.LinhaDigitavelEmail);
  routes
  .get('/api/v1/epf/ReembolsoCobranca/:idContrato', ReembolsoCobranca.ReembolsoCobranca);
  routes
