@@ -17,6 +17,7 @@ const LinhaDigitavelEmail = require('../../../ControllerFinanceira/LinhaDigitave
 const ReembolsoCobranca = require('../../../ControllerFinanceira/ReembolsoCobranca/ReembolsoCobranca');
 const SaldoDevedorDia = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDia');
 const SaldoDevedorDiaV2 = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDiaV2');
+const Correspondente = require('../../../ControllerFinanceira/Correspondente/Correspondente')
 
 const StatusContrato = require('../../../ControllerFinanceira/StatusContrato/StatusContrato');
 const StatusProposta = require('../../../ControllerFinanceira/StatusProposta/StatusProposta');
@@ -39,6 +40,12 @@ routes
 .get('/api/v1/scd/Carnes/:idContrato', Carnes.Carnes);
 routes
 .get('/api/v1/scd/CelularCliente/:idContrato', CelularCliente.CelularCliente);
+
+
+routes
+.get('/api/v1/epf/Correspondente/:idContrato', Correspondente.correspondente);
+
+
  routes
  .get('/api/v1/scd/ConsultaAni/:numTelefone', 
  ConsultaAni.ScdConsultaAni.ScdConsultaAni);
