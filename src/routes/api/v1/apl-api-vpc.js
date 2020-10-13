@@ -21,6 +21,7 @@ const ControllerRefinCalculo = require('../../../Controllers/Caculo/ControllerRe
 const ControllerTokenAndListOfBank = require('../../../Controllers/Banco/ControllerBanco');
 const ControllerLoteSimulacao = require('../../../Controllers/LoteSimulacao/ControllerLoteSimulacao');
 const ControllerLead = require('../../../Controllers/Lead/ControllerLead');
+const ControllerPropostaCliente = require('../../../Controllers/Dados/ControllerPropostaCliente');
 
 routes.put('/Lead', ControllerLead.sendLead)
 
@@ -58,5 +59,7 @@ routes
 .post('/api/v1/Bancos', ControllerTokenAndListOfBank.getBank );
 
 routes.get('/LoteSimulacao/:telefone', ControllerLoteSimulacao.loteSimulacao);
+
+routes.get('/PropostaCliente/:cpf/Dados', ControllerPropostaCliente.dados);
 
 module.exports = routes;
