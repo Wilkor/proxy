@@ -32,7 +32,7 @@
     "node-fetch": "^2.6.0",
     "nodejs-base64-encode": "^1.1.0",
     "pipe": "^1.1.0",
-    "sendgrid": "^2.0.0",
+    "sendgrid": "^3.0.0",
     "socket.io": "^2.3.0",
     "uuid": "^8.0.0",
     "walk": "^2.3.14"
