@@ -20,7 +20,7 @@
     "express": "^4.16.4",
     "handlebars-pdf": "^1.0.1",
     "helmet": "^4.1.0",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "http": "0.0.0",
     "js-base64": "^2.5.2",
     "jsonwebtoken": "^7.4.0",
