@@ -18,6 +18,7 @@ const SaldoDevedorDia = require('../../../ControllerFinanceira/SaldoDevedorDia/S
 const StatusContrato = require('../../../ControllerFinanceira/StatusContrato/StatusContrato');
 const StatusProposta = require('../../../ControllerFinanceira/StatusProposta/StatusProposta');
 const Token = require('../../../ControllerFinanceira/Token/Token');
+const ProcessarAceite = require('../../../ControllerFinanceira/AbusoPatrimonial/ProcessarAceite');
 
 
 routes
@@ -72,6 +73,8 @@ routes
  .get('/api/v1/epf/StatusProposta/:idCliente', StatusProposta.StatusProposta);
  routes
  .post('/api/v1/Token', Token.Token);
+ routes
+ .post('/api/aqx/v1/AbusoPatrimonial/ProcessarAceite', ProcessarAceite.ProcessarAceite);
 
  module.exports = routes;
   
