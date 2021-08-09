@@ -17,7 +17,8 @@ const LinhaDigitavelEmail = require('../../../ControllerFinanceira/LinhaDigitave
 const ReembolsoCobranca = require('../../../ControllerFinanceira/ReembolsoCobranca/ReembolsoCobranca');
 const SaldoDevedorDia = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDia');
 const SaldoDevedorDiaV2 = require('../../../ControllerFinanceira/SaldoDevedorDia/SaldoDevedorDiaV2');
-const Correspondente = require('../../../ControllerFinanceira/Correspondente/Correspondente')
+const Correspondente = require('../../../ControllerFinanceira/Correspondente/Correspondente');
+const ProcessarAceite = require('../../../ControllerFinanceira/AbusoPatrimonial/ProcessarAceite');
 
 const StatusContrato = require('../../../ControllerFinanceira/StatusContrato/StatusContrato');
 const StatusProposta = require('../../../ControllerFinanceira/StatusProposta/StatusProposta');
@@ -89,6 +90,8 @@ routes
  .get('/api/v1/epf/StatusProposta/:idCliente', StatusProposta.StatusProposta);
  routes
  .post('/api/v1/Token', Token.Token);
+ routes
+ .post('/api/aqx/v1/AbusoPatrimonial/ProcessarAceite', ProcessarAceite.ProcessarAceite);
 
  module.exports = routes;
   
