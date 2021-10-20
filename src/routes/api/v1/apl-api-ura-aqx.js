@@ -5,6 +5,7 @@ const AntecipacaoParcelas = require('../../../ControllerFinanceira/AntecipacaoPa
 const AutenticacaoPositiva = require('../../../ControllerFinanceira/AutenticacaoPositiva/AutenticacaoPositiva');
 const BloquearCliente = require('../../../ControllerFinanceira/BloquearCliente/BloquearCliente');
 const BuscaDadosCpf = require('../../../ControllerFinanceira/BuscaDadosCpf/BuscaDadosCpf');
+const DownloadBoleto = require('../../../ControllerFinanceira/Boletos/DownloadBoleto');
 const Carnes = require('../../../ControllerFinanceira/Carnes/Carnes');
 const CelularCliente = require('../../../ControllerFinanceira/CelularCliente/CelularCliente');
 const ConsultaAni = require('../../../ControllerFinanceira/ConsultaAni/index');
@@ -47,6 +48,7 @@ routes
 routes
 .get('/api/v1/epf/Correspondente/:idContrato', Correspondente.correspondente);
 
+routes.get('/api/v1/epf/Boletos/:idContrato/Quitacao/:idCliente/Download', DownloadBoleto.DownloadBoleto)
 
  routes
  .get('/api/v1/scd/ConsultaAni/:numTelefone', 
