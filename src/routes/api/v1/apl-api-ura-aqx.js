@@ -78,9 +78,9 @@ routes.get('/api/v1/epf/Boletos/:idContrato/Quitacao/:idCliente/Download', Downl
  routes
  .get('/api/v1/scd/IdentificaLojista/:cpfCnpj', IdentificaLojista.IdentificaLojista);
  routes
- .post('/api/v1/scd/LinhaDigitavel', LinhaDigitavel.LinhaDigitavel);
+ .get('/api/v1/scd/LinhaDigitavel/LinhaDigitavel/:linhaDigitavel/Validar', LinhaDigitavelValidar.LinhaDigitavelValidar);
  routes
- .get('/api/v1/scd/LinhaDigitavel/LinhaDigitavel/:linhaDigitavel/LinhaDigitavelValidar', LinhaDigitavelValidar.LinhaDigitavelValidar);
+ .post('/api/v1/scd/LinhaDigitavel', LinhaDigitavel.LinhaDigitavel);
  routes
  .post('/api/v1/scd/LinhaDigitavel/Email', LinhaDigitavelEmail.LinhaDigitavelEmail);
  routes
