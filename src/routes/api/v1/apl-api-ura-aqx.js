@@ -80,7 +80,7 @@ routes.get('/api/v1/epf/Boletos/:idContrato/Quitacao/:idCliente/Download', Downl
  routes
  .post('/api/v1/scd/LinhaDigitavel', LinhaDigitavel.LinhaDigitavel);
  routes
- .get('/api/v1/scd/LinhaDigitavel/LinhaDigitavel/:linhaDigitavel/Validar', LinhaDigitavelValidar.LinhaDigitavelValidar);
+ .get('/api/v1/scd/LinhaDigitavel/LinhaDigitavel/:linhaDigitavel/LinhaDigitavelValidar', LinhaDigitavelValidar.LinhaDigitavelValidar);
  routes
  .post('/api/v1/scd/LinhaDigitavel/Email', LinhaDigitavelEmail.LinhaDigitavelEmail);
  routes
